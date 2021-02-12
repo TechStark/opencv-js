@@ -1,0 +1,25 @@
+{
+  "name": "opencv-js",
+  "version": "0.0.1-rc.1",
+  "description": "OpenCV JavaScript version for node.js or browser",
+  "main": "dist/opencv.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechStark/opencv-js.git"
+  },
+  "keywords": [
+    "opencv",
+    "javascript",
+    "computer vision"
+  ],
+  "author": "Wilson",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/TechStark/opencv-js/issues"
+  },
+  "homepage": "https://github.com/TechStark/opencv-js#readme"
+}
