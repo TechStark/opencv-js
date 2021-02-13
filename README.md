@@ -21,4 +21,4 @@ module.exports = {
 
 # Examples
 ## Using in react.js project
-See example in [TestPage.js](examples/react.js/TestPage.js`)
+See example in [TestPage.js](examples/react.js/TestPage.js)
