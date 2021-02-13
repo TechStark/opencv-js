@@ -1,6 +1,8 @@
 # opencv-js
 OpenCV JavaScript version for node.js or browser. The file `opencv.js` was downloaded from https://docs.opencv.org/4.5.1/opencv.js
 
+TypeScript is also supported (thanks to `mirada`).
+
 # How to Use
 - `npm install @techstark/opencv-js`
 - or `yarn add @techstark/opencv-js`
