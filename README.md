@@ -25,4 +25,4 @@ module.exports = {
 # Examples
 ## Using in react.js project
 - See example in [TestPage.js](examples/react.js/TestPage.js)
-- See [live demo here](https://codesandbox.io/s/unruffled-antonelli-f7gvk)
+- See [live demo here](https://codesandbox.io/s/techstarkopencv-js-demo-page-f7gvk)
