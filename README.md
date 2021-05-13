@@ -3,7 +3,7 @@ OpenCV JavaScript version for node.js or browser. The file `opencv.js` was downl
 
 TypeScript is supported (thanks to `mirada`).
 
-# Live Example
+# Examples & Live Demo
 ## Using in react.js project
 - See example in [TestPage.js](examples/react.js/TestPage.js)
 - See [live demo here](https://codesandbox.io/s/techstarkopencv-js-demo-page-f7gvk)
