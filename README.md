@@ -5,8 +5,8 @@ TypeScript is supported (thanks to `mirada`).
 
 # Examples & Live Demo
 ## Using in react.js project
-- See example in [TestPage.js](examples/react.js/TestPage.js)
 - See [live demo here](https://codesandbox.io/s/techstarkopencv-js-demo-page-f7gvk)
+- See example in [TestPage.js](examples/react.js/TestPage.js)
 
 # How to Use
 - `npm install @techstark/opencv-js`
