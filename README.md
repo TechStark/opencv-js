@@ -1,5 +1,5 @@
 # opencv-js
-OpenCV JavaScript version for node.js or browser. The file `opencv.js` was downloaded from https://docs.opencv.org/4.5.1/opencv.js
+OpenCV JavaScript version for node.js or browser. The file `opencv.js` was downloaded from https://docs.opencv.org/4.5.2/opencv.js
 
 TypeScript is supported (thanks to `mirada`).
 
