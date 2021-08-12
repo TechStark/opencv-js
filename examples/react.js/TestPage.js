@@ -1,5 +1,6 @@
 import React from "react";
 import cv from "@techstark/opencv-js";
+import "./styles.css";
 
 // window.cv = cv;
 
@@ -9,7 +10,7 @@ class TestPage extends React.Component {
     this.inputRef = React.createRef();
     this.outputRef = React.createRef();
     this.state = {
-      imgUrl: "",
+      imgUrl: null
     };
   }
 
@@ -17,8 +18,7 @@ class TestPage extends React.Component {
     const { imgUrl } = this.state;
     return (
       <div>
-        <div>
-          Select an image file as input{" "}
+        <div style={{ marginTop: "30px" }}>
           <input
             type="file"
             name="file"
@@ -26,11 +26,14 @@ class TestPage extends React.Component {
             onChange={(e) => {
               if (e.target.files[0]) {
                 this.setState({
-                  imgUrl: URL.createObjectURL(e.target.files[0]),
+                  imgUrl: URL.createObjectURL(e.target.files[0])
                 });
               }
             }}
           />
+          <div>
+            Select an image file. It will be converted to gray-scale image.
+          </div>
         </div>
 
         <div className="input-image">
@@ -54,6 +57,9 @@ class TestPage extends React.Component {
         </div>
 
         <div className="output-image">
+          {imgUrl && (
+            <div style={{ margin: "10px" }}>↓↓↓ The gray scale image ↓↓↓</div>
+          )}
           <canvas ref={this.outputRef} />
         </div>
       </div>
@@ -61,4 +67,10 @@ class TestPage extends React.Component {
   }
 }
 
-export default TestPage;
+export default function App() {
+  return (
+    <div className="App">
+      <TestPage />
+    </div>
+  );
+}
