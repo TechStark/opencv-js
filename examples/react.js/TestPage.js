@@ -8,7 +8,8 @@ class TestPage extends React.Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
-    this.outputRef = React.createRef();
+    this.output1Ref = React.createRef();
+    this.output2Ref = React.createRef();
     this.state = {
       imgUrl: null
     };
@@ -42,15 +43,24 @@ class TestPage extends React.Component {
               alt="Select a file"
               src={imgUrl}
               onLoad={(e) => {
+                /////////////////////////////////////////
                 //
                 // process image with opencv.js
                 //
-                const mat = cv.imread(e.target);
+                /////////////////////////////////////////
+                const img = cv.imread(e.target);
+
                 const imgGray = new cv.Mat();
-                cv.cvtColor(mat, imgGray, cv.COLOR_BGR2GRAY);
-                cv.imshow(this.outputRef.current, imgGray);
-                mat.delete();
+                cv.cvtColor(img, imgGray, cv.COLOR_BGR2GRAY);
+                cv.imshow(this.output1Ref.current, imgGray);
+
+                const edges = new cv.Mat();
+                cv.Canny(imgGray, edges, 100, 100);
+                cv.imshow(this.output2Ref.current, edges);
+
+                img.delete();
                 imgGray.delete();
+                edges.delete();
               }}
             />
           )}
@@ -60,7 +70,14 @@ class TestPage extends React.Component {
           {imgUrl && (
             <div style={{ margin: "10px" }}>↓↓↓ The gray scale image ↓↓↓</div>
           )}
-          <canvas ref={this.outputRef} />
+          <canvas ref={this.output1Ref} />
+        </div>
+
+        <div className="output-image">
+          {imgUrl && (
+            <div style={{ margin: "10px" }}>↓↓↓ Canny Edge Result ↓↓↓</div>
+          )}
+          <canvas ref={this.output2Ref} />
         </div>
       </div>
     );
