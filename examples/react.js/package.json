@@ -4,7 +4,7 @@
   "description": "",
   "keywords": [],
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
