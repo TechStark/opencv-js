@@ -12,6 +12,10 @@ TypeScript is supported (thanks to `mirada`).
   <img src="https://user-images.githubusercontent.com/132509/130320696-eaa3899b-2356-4e9f-bbc9-0a969465c58e.png" height="800px" alt="Live demo screenshot" />
 - Get the test image from here [Lenna.png](test/Lenna.png)
 
+## Realtime face detection
+
+- See [live demo and code here](https://codesandbox.io/s/opencv-js-face-detection-i1i3u)
+
 # How to Use
 
 - `npm install @techstark/opencv-js`
