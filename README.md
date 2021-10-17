@@ -1,6 +1,6 @@
 # opencv-js
 
-OpenCV JavaScript version (NPM package) for node.js or browser. The file `opencv.js` was downloaded from https://docs.opencv.org/4.5.3/opencv.js
+OpenCV JavaScript version (NPM package) for node.js or browser. The file `opencv.js` was downloaded from https://docs.opencv.org/4.5.4/opencv.js
 
 TypeScript is supported (thanks to `mirada`).
 
