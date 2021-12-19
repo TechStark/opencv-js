@@ -44,7 +44,12 @@ module.exports = {
 import cv from "@techstark/opencv-js";
 
 Object.keys(cv);
+```
 
+<details style="max-height: 600px;">
+  <summary>Expand to see all methods and properties</summary>
+
+```js
 [
   "HEAP8",
   "HEAP16",
@@ -1481,3 +1486,5 @@ Object.keys(cv);
   "LOG_LEVEL_WARNING",
 ];
 ```
+
+</details>
