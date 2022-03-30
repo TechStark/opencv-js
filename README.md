@@ -15,7 +15,8 @@ TypeScript is supported (thanks to `mirada`).
 ## Real-time face detection
 
 - See [live demo and code here](https://codesandbox.io/s/opencv-js-face-detection-i1i3u)
-<img src="https://user-images.githubusercontent.com/132509/160820773-cdb023a6-77a2-4f2e-a0e9-fb06931c8f9f.gif" alt="Real-time face detection" />
+
+![Real-time face detection](https://user-images.githubusercontent.com/132509/160820773-cdb023a6-77a2-4f2e-a0e9-fb06931c8f9f.gif)
 
 # How to Use
 
