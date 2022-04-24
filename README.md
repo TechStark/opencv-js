@@ -8,9 +8,13 @@ TypeScript is supported (thanks to `mirada`).
 
 ## Using in react.js project
 
-- See [live demo and code here](https://codesandbox.io/s/techstarkopencv-js-demo-page-f7gvk)
+- See [live demo and code here](https://codesandbox.io/s/techstarkopencv-js-demo-page-f7gvk?file=/src/TestPage.jsx)
   <img src="https://user-images.githubusercontent.com/132509/130320696-eaa3899b-2356-4e9f-bbc9-0a969465c58e.png" height="800px" alt="Live demo screenshot" />
 - Get the test image from here [Lenna.png](test/Lenna.png)
+
+## Using in Angular project
+
+- See [code here](https://codesandbox.io/s/techstark-opencv-js-angular-demo-hkmc1n?file=/src/app/app.component.ts)
 
 ## Real-time face detection
 
@@ -22,6 +26,8 @@ TypeScript is supported (thanks to `mirada`).
 
 - `npm install @techstark/opencv-js`
 - or `yarn add @techstark/opencv-js`
+- `import cv from "@techstark/opencv-js"`
+- or `import * as cv from "@techstark/opencv-js"` for Angular
 
 # Webpack Configuration (for browser usage)
 
