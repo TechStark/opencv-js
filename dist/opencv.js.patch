@@ -1,0 +1,14 @@
+diff --git a/dist/opencv.js b/dist/opencv.js
+index b350408..29049b3 100644
+--- a/dist/opencv.js
++++ b/dist/opencv.js
+@@ -42,7 +42,7 @@ if (typeof exports === 'object' && typeof module === 'object')
+       exports["cv"] = cv;
+     
+   if (typeof Module === 'undefined')
+-    Module = {};
++    var Module = {};
+   return cv(Module);
+ }));
+         
+\ No newline at end of file
