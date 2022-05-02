@@ -4,7 +4,11 @@ OpenCV JavaScript version (NPM package) for node.js or browser. The file `opencv
 
 TypeScript is supported (thanks to `mirada`).
 
-# Examples & Live Demo
+# Code Examples
+
+- See code examples (React, Angular) in [opencv-js-examples](https://github.com/TechStark/opencv-js-examples)
+
+# Live Demo
 
 ## Using in react.js project
 
