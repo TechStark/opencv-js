@@ -50,7 +50,7 @@ module.exports = {
 };
 ```
 
-# What methods/proerties are available
+# What methods/properties are available
 
 ```js
 import cv from "@techstark/opencv-js";
