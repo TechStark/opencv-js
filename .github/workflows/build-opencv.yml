@@ -1,6 +1,6 @@
 name: Build OpenCV.js
 
-on: {}
+on: [push]
 
 jobs:
   build-opencv:
