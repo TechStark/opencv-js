@@ -1,6 +1,7 @@
 name: Build OpenCV.js
 
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
   build-opencv:
