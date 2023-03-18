@@ -14,7 +14,6 @@ jobs:
       - name: Install an emsdk version
         run: |
           cd emsdk
-          ./emsdk update
           ./emsdk install 2.0.10
           ./emsdk activate 2.0.10
           source emsdk_env.sh
