@@ -1,0 +1,34 @@
+name: Build OpenCV.js
+
+on: {}
+
+jobs:
+  build-opencv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout emsdk
+        uses: actions/checkout@v3
+        with:
+          repository: emscripten-core/emsdk
+          path: emsdk
+      - name: Install an emsdk version
+        run: |
+          cd emsdk
+          ./emsdk update
+          ./emsdk install 2.0.10
+          ./emsdk activate 2.0.10
+          source emsdk_env.sh
+
+      - name: Checkout opencv
+        uses: actions/checkout@v3
+        with:
+          repository: opencv/opencv
+          ref: 4.7.0
+          path: opencv
+      - name: Build opencv.js
+        run: |
+          cd opencv
+          emcmake python ./platforms/js/build_js.py build_js
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
