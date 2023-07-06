@@ -29,5 +29,12 @@ jobs:
           source emsdk/emsdk_env.sh
           emcmake python opencv/platforms/js/build_js.py build_js
 
+      - name: Upload opencv_js
+        uses: actions/upload-artifact@v3
+        with:
+          name: opencv_build_js
+          path: build_js
+          retention-days: 5
+
       - name: Check out repository code
         uses: actions/checkout@v3
