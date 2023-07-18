@@ -2,6 +2,7 @@ name: Build OpenCV.js
 
 on:
   workflow_dispatch:
+    inputs: {}
 
 jobs:
   build-opencv:
