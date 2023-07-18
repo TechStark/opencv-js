@@ -34,7 +34,7 @@ jobs:
         with:
           name: opencv_build_js
           path: build_js
-          retention-days: 5
+          retention-days: 30
 
       - name: Check out repository code
         uses: actions/checkout@v3
