@@ -1,6 +1,10 @@
 name: Build OpenCV.js
 
 on:
+  push:
+    branches:
+      - build-opencv
+      - main
   workflow_dispatch:
     inputs: {}
 
