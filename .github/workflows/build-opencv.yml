@@ -37,8 +37,8 @@ jobs:
       - name: Upload opencv_js
         uses: actions/upload-artifact@v3
         with:
-          name: opencv_build_js
-          path: build_js
+          name: opencv.js
+          path: build_js/bin/opencv.js
           retention-days: 30
 
       - name: Check out repository code
