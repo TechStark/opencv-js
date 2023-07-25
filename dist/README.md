@@ -21,20 +21,12 @@ emcmake python ./platforms/js/build_js.py build_js --build_wasm
 
 - To create a patch for the current version of opencv.js, run:
 
-```
-
+```sh
 git diff > dist/opencv.js.patch
-
 ```
 
 - To apply the patch, run:
 
-```
-
+```sh
 git apply dist/opencv.js.patch
-
-```
-
-```
-
 ```
