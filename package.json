@@ -1,6 +1,6 @@
 {
   "name": "@techstark/opencv-js",
-  "version": "4.8.0-release.1",
+  "version": "4.8.0-release.2",
   "description": "OpenCV JavaScript version for node.js or browser",
   "main": "dist/opencv.js",
   "types": "dist/types/index.d.ts",
