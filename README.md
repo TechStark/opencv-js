@@ -30,8 +30,17 @@ TypeScript is supported (thanks to `mirada`).
 
 - `npm install @techstark/opencv-js`
 - or `yarn add @techstark/opencv-js`
-- `import cv from "@techstark/opencv-js"`
-- or `import * as cv from "@techstark/opencv-js"` for Angular
+- `const cv = await import("@techstark/opencv-js");`
+- or wrap it in an async function like
+
+```js
+async function getOpenCv() {
+  const cv = await import("@techstark/opencv-js");
+  // for development
+  window.cv = cv;
+  return cv;
+}
+```
 
 # Webpack Configuration (for browser usage)
 
