@@ -1,6 +1,6 @@
 # opencv-js
 
-OpenCV JavaScript version (NPM package) for node.js or browser. The file `dist/opencv.js` is built by [this GitHub action](https://github.com/TechStark/opencv-js/actions/workflows/build-opencv.yml). Previously, this file was downloaded from https://docs.opencv.org/4.8.0/opencv.js
+OpenCV JavaScript version (NPM package) for node.js or browser. The file `opencv.js` was downloaded from https://docs.opencv.org/4.8.0/opencv.js
 
 TypeScript is supported (thanks to `mirada`).
 
@@ -30,17 +30,8 @@ TypeScript is supported (thanks to `mirada`).
 
 - `npm install @techstark/opencv-js`
 - or `yarn add @techstark/opencv-js`
-- `const cv = await import("@techstark/opencv-js");`
-- or wrap it in an async function like
-
-```js
-async function getOpenCv() {
-  const cv = await import("@techstark/opencv-js");
-  // for development
-  window.cv = cv;
-  return cv;
-}
-```
+- `import cv from "@techstark/opencv-js"`
+- or `import * as cv from "@techstark/opencv-js"` for Angular
 
 # Webpack Configuration (for browser usage)
 
