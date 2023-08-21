@@ -22,8 +22,5 @@
   "bugs": {
     "url": "https://github.com/TechStark/opencv-js/issues"
   },
-  "homepage": "https://github.com/TechStark/opencv-js#readme",
-  "dependencies": {
-    "mirada": "^0.0.15"
-  }
+  "homepage": "https://github.com/TechStark/opencv-js#readme"
 }
