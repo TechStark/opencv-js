@@ -3,11 +3,13 @@
   "version": "4.8.0-release.4",
   "description": "OpenCV JavaScript version for node.js or browser",
   "main": "dist/opencv.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist/"
   ],
-  "scripts": {},
+  "scripts": {
+    "build": "tsc"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TechStark/opencv-js.git"
@@ -22,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/TechStark/opencv-js/issues"
   },
-  "homepage": "https://github.com/TechStark/opencv-js#readme"
+  "homepage": "https://github.com/TechStark/opencv-js#readme",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
 }
