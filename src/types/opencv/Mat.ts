@@ -12,7 +12,6 @@ import {
   MatSize,
   MatStep,
   Matx,
-  Mat_,
   OutputArray,
   Point,
   Point3_,
@@ -248,12 +247,20 @@ import {
  * [opencv2/core/mat.hpp](https://github.com/opencv/opencv/tree/master/modules/core/include/opencv2/core/mat.hpp#L2073).
  *
  */
-export declare class Mat extends Mat_ {
+export declare class Mat {
   public allocator: MatAllocator;
 
   public cols: int;
 
-  public data: uchar;
+  public data: Uint8Array;
+  public data8S: Int8Array;
+  public data8U: Uint8Array;
+  public data16U: Uint16Array;
+  public data16S: Int16Array;
+  public data32U: Uint32Array;
+  public data32S: Int32Array;
+  public data32F: Float32Array;
+  public data64F: Float64Array;
 
   public dataend: uchar;
 
@@ -1370,7 +1377,7 @@ export declare class Mat extends Mat_ {
    *
    * @param elem Added element(s).
    */
-  public push_back(arg48: any, elem: Mat_): Mat_;
+  public push_back(arg48: any, elem: Mat): Mat;
 
   /**
    *   This is an overloaded member function, provided for convenience. It differs from the above
@@ -1586,6 +1593,27 @@ export declare class Mat extends Mat_ {
   public type(): int;
 
   public updateContinuityFlag(): void;
+
+  public ucharPtr(i: any, j: any): any;
+  public charPtr(i: any, j: any): any;
+  public shortPtr(i: any, j: any): any;
+  public ushortPtr(i: any, j: any): any;
+  public intPtr(i: any, j: any): any;
+  public ucharAt(i: any): any;
+  public charAt(i: any): any;
+  public floatPtr(i: any, j: any): any;
+  public doublePtr(i: any, j: any): any;
+  public intPtr(i: any, j: any): any;
+  public setTo(value: Mat | Scalar, mask?: Mat): Mat;
+  /**
+   * Sometimes, you will have to play with certain region of images.
+   * For eye detection in images, first face detection is done all
+   * over the image and when face is obtained, we select the face region alone and search for eyes inside it instead of searching whole image.
+   * It improves accuracy (because eyes are always on faces) and performance (because we search for a small area).
+   *
+   * Heads up : in JS seems only one argument is expected.
+   */
+  public roi(expr: Rect | Mat): Mat;
 
   /**
    *   The method creates a square diagonal matrix from specified main diagonal.

@@ -15,7 +15,6 @@ export {
   Mat as InputArrayOfArrays,
   Mat as InputOutputArray,
   Mat as InputOutputArrayOfArrays,
-  Mat as MatVector,
   Mat as OutputArray,
   Mat as OutputArrayOfArrays,
 } from "./Mat";
@@ -149,7 +148,7 @@ export declare class Vector<T> extends EmscriptenEmbindInstance {
   get(i: number, j: number, data: any): T;
   set(i: number, t: T): void;
   put(i: number, j: number, data: any): any;
-  // size(): number
+  size(): number;
   push_back(n: T): any;
   resize(count: number, value?: T): void;
   delete(): void;
@@ -163,6 +162,7 @@ export declare class PointVector extends Vector<Point> {}
 export declare class KeyPointVector extends Vector<any> {}
 export declare class DMatchVector extends Vector<any> {}
 export declare class DMatchVectorVector extends Vector<Vector<any>> {}
+export declare class MatVector extends Vector<Mat> {}
 
 export declare class RectVector extends Rect implements Vector<Rect> {
   get(i: number): Rect;
@@ -194,39 +194,6 @@ export declare function matFromArray(
   type: any,
   array: number[] | ArrayBufferView,
 ): Mat;
-
-/** since we don't support inheritance yet we force Mat to extend Mat_ which type defined here: */
-export declare class Mat_ extends Vector<Mat> {
-  public data: Uint8Array;
-  public data8S: Int8Array;
-  public data8U: Uint8Array;
-  public data16U: Uint16Array;
-  public data16S: Int16Array;
-  public data32U: Uint32Array;
-  public data32S: Int32Array;
-  public data32F: Float32Array;
-  public data64F: Float64Array;
-  public ucharPtr(i: any, j: any): any;
-  public charPtr(i: any, j: any): any;
-  public shortPtr(i: any, j: any): any;
-  public ushortPtr(i: any, j: any): any;
-  public intPtr(i: any, j: any): any;
-  public ucharAt(i: any): any;
-  public charAt(i: any): any;
-  public floatPtr(i: any, j: any): any;
-  public doublePtr(i: any, j: any): any;
-  public intPtr(i: any, j: any): any;
-  public setTo(value: Mat_ | Scalar, mask?: Mat_): Mat_;
-  /**
-   * Sometimes, you will have to play with certain region of images.
-   * For eye detection in images, first face detection is done all
-   * over the image and when face is obtained, we select the face region alone and search for eyes inside it instead of searching whole image.
-   * It improves accuracy (because eyes are always on faces) and performance (because we search for a small area).
-   *
-   * Heads up : in JS seems only one argument is expected.
-   */
-  public roi(expr: Rect | Mat_): Mat;
-}
 
 export declare class ImageData {
   data: ArrayBufferView;
