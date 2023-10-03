@@ -7,6 +7,7 @@ import {
   InputOutputArrayOfArrays,
   int,
   Mat,
+  MinMaxLoc,
   OutputArray,
   OutputArrayOfArrays,
   Scalar,
@@ -1584,7 +1585,7 @@ export declare function minMaxLoc(
   minLoc?: any,
   maxLoc?: any,
   mask?: InputArray,
-): void;
+): MinMaxLoc;
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function
@@ -1608,7 +1609,7 @@ export declare function minMaxLoc(
   maxVal: any,
   minIdx?: any,
   maxIdx?: any,
-): void;
+): MinMaxLoc;
 
 /**
  * The function [cv::mixChannels] provides an advanced mechanism for shuffling image channels.
