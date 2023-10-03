@@ -1602,6 +1602,7 @@ export declare class Mat {
   public ucharAt(i: any): any;
   public charAt(i: any): any;
   public floatPtr(i: any, j: any): any;
+  public doubleAt(i: int, j: int): any;
   public doublePtr(i: any, j: any): any;
   public intPtr(i: any, j: any): any;
   public setTo(value: Mat | Scalar, mask?: Mat): Mat;
