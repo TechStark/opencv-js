@@ -1,5 +1,4 @@
-
-import { bool, FileNode, FileStorage, InputArrayOfArrays, Ptr } from './_types'
+import { bool, FileNode, FileStorage, InputArrayOfArrays, Ptr } from "./_types";
 
 /**
  * This matcher trains [cv::flann::Index](#d1/db2/classcv_1_1flann_1_1Index}) on a train descriptor
@@ -8,35 +7,34 @@ import { bool, FileNode, FileStorage, InputArrayOfArrays, Ptr } from './_types'
  * [FlannBasedMatcher](#dc/de2/classcv_1_1FlannBasedMatcher}) does not support masking permissible
  * matches of descriptor sets because [flann::Index](#d1/db2/classcv_1_1flann_1_1Index}) does not
  * support this. :
- * 
+ *
  * Source:
  * [opencv2/features2d.hpp](https://github.com/opencv/opencv/tree/master/modules/core/include/opencv2/features2d.hpp#L1187).
- * 
+ *
  */
 export declare class FlannBasedMatcher {
-
-  public constructor(indexParams?: Ptr, searchParams?: Ptr)
+  public constructor(indexParams?: Ptr, searchParams?: Ptr);
 
   /**
    *   If the collection is not empty, the new descriptors are added to existing train descriptors.
-   *   
+   *
    * @param descriptors Descriptors to add. Each descriptors[i] is a set of descriptors from the same
    * train image.
    */
-  public add(descriptors: InputArrayOfArrays): InputArrayOfArrays
+  public add(descriptors: InputArrayOfArrays): InputArrayOfArrays;
 
-  public clear(): void
+  public clear(): void;
 
   /**
    * @param emptyTrainData If emptyTrainData is false, the method creates a deep copy of the object,
    * that is, copies both parameters and train data. If emptyTrainData is true, the method creates an
    * object copy with the current parameters but with empty train data.
    */
-  public clone(emptyTrainData?: bool): Ptr
+  public clone(emptyTrainData?: bool): Ptr;
 
-  public isMaskSupported(): bool
+  public isMaskSupported(): bool;
 
-  public read(fn: FileNode): FileNode
+  public read(fn: FileNode): FileNode;
 
   /**
    *   Trains a descriptor matcher (for example, the flann index). In all methods to match, the method
@@ -44,10 +42,9 @@ export declare class FlannBasedMatcher {
    * BruteForceMatcher) have an empty implementation of this method. Other matchers really train their
    * inner structures (for example, [FlannBasedMatcher] trains [flann::Index] ).
    */
-  public train(): void
+  public train(): void;
 
-  public write(fs: FileStorage): FileStorage
+  public write(fs: FileStorage): FileStorage;
 
-  public static create(): Ptr
+  public static create(): Ptr;
 }
-
