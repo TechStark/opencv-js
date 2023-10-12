@@ -1,14 +1,16 @@
 {
   "name": "@techstark/opencv-js",
-  "version": "4.8.0-release.7",
+  "version": "4.8.0-release.8",
   "description": "OpenCV JavaScript version for node.js or browser",
   "main": "dist/opencv.js",
   "types": "dist/src/index.d.ts",
   "files": [
-    "dist/"
+    "dist/",
+    "src/"
   ],
   "scripts": {
     "build": "tsc",
+    "prepack": "npm run build",
     "format": "prettier --write \"src/**/*.ts\""
   },
   "repository": {
