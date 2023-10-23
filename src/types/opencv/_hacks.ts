@@ -131,19 +131,21 @@ export declare function getInheritedInstanceCount(...a: any[]): any;
 export declare function getLiveInheritedInstances(...a: any[]): any;
 export declare function flushPendingDeletes(...a: any[]): any;
 export declare function setDelayFunction(...a: any[]): any;
+
 export declare class EmscriptenEmbindInstance {
-  isAliasOf(...a: any[]): any;
-  clone(...a: any[]): any;
-  delete(...a: any[]): any;
-  isDeleted(...a: any[]): any;
-  deleteLater(...a: any[]): any;
+  isAliasOf(other: any): bool;
+  clone(): any;
+  delete(): any;
+  isDeleted(): boolean;
+  deleteLater(): any;
 }
+
 export declare class InternalError extends Error {}
 export declare class BindingError extends Error {}
 export declare class UnboundTypeError extends Error {}
 export declare class PureVirtualError extends Error {}
+
 export declare class Vector<T> extends EmscriptenEmbindInstance {
-  delete(): void;
   get(i: number): T;
   get(i: number, j: number, data: any): T;
   set(i: number, t: T): void;
@@ -151,7 +153,6 @@ export declare class Vector<T> extends EmscriptenEmbindInstance {
   size(): number;
   push_back(n: T): any;
   resize(count: number, value?: T): void;
-  delete(): void;
 }
 
 export declare class Vec3d extends Vector<any> {}

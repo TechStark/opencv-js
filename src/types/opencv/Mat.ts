@@ -2,6 +2,7 @@ import {
   AccessFlag,
   bool,
   double,
+  EmscriptenEmbindInstance,
   InputArray,
   int,
   MatAllocator,
@@ -247,7 +248,7 @@ import {
  * [opencv2/core/mat.hpp](https://github.com/opencv/opencv/tree/master/modules/core/include/opencv2/core/mat.hpp#L2073).
  *
  */
-export declare class Mat {
+export declare class Mat extends EmscriptenEmbindInstance {
   public allocator: MatAllocator;
 
   public cols: int;
