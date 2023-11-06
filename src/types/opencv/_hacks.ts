@@ -10,14 +10,12 @@ export declare class Scalar extends Array<number> {
   public static all(...v: number[]): Scalar;
 }
 // Hack: expose Mat super classes like Mat_, InputArray, Vector, OutputArray we make them alias of Mat to simplify and make it work
-export {
-  Mat as InputArray,
-  Mat as InputArrayOfArrays,
-  Mat as InputOutputArray,
-  Mat as InputOutputArrayOfArrays,
-  Mat as OutputArray,
-  Mat as OutputArrayOfArrays,
-} from "./Mat";
+export { Mat as InputArray };
+export { Mat as InputOutputArray };
+export { Mat as OutputArray };
+export { MatVector as InputArrayOfArrays };
+export { MatVector as InputOutputArrayOfArrays };
+export { MatVector as OutputArrayOfArrays };
 export { Scalar as GScalar };
 export { Point as Point2f };
 export { Point as KeyPoint };
