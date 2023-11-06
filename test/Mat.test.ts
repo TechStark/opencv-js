@@ -18,9 +18,11 @@ describe("Mat", () => {
 
       // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
       const img = cv.matFromImageData(jimpSrc.bitmap);
+      expect(img.channels()).toEqual(4);
 
       const imgGray = new cv.Mat();
       cv.cvtColor(img, imgGray, cv.COLOR_RGBA2GRAY);
+      expect(imgGray.channels()).toEqual(1);
 
       const imgBlur = new cv.Mat();
       cv.GaussianBlur(
