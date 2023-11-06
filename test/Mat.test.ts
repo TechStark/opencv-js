@@ -1,4 +1,6 @@
 import "../src";
+import Jimp from "jimp";
+import path from "path";
 
 beforeAll(async () => {
   return new Promise((resolve) => {
@@ -9,9 +11,13 @@ beforeAll(async () => {
 });
 
 describe("Mat", () => {
-  it("shoud pass TS type validations", () => {
+  it("shoud pass TS type validations", async () => {
     try {
-      const img = new cv.Mat();
+      // load local image file with jimp. It supports jpg, png, bmp, tiff and gif:
+      const jimpSrc = await Jimp.read(path.resolve(__dirname, "Lenna.png"));
+
+      // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
+      const img = cv.matFromImageData(jimpSrc.bitmap);
 
       const imgGray = new cv.Mat();
       cv.cvtColor(img, imgGray, cv.COLOR_RGBA2GRAY);
