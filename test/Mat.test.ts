@@ -1,14 +1,8 @@
-import "../src";
 import Jimp from "jimp";
 import path from "path";
+import { setupOpenCv, translateException } from "./cv";
 
-beforeAll(async () => {
-  return new Promise((resolve) => {
-    const _cv = require("../dist/opencv");
-    _cv.onRuntimeInitialized = resolve;
-    global.cv = _cv;
-  });
-});
+beforeAll(setupOpenCv);
 
 describe("Mat", () => {
   it("shoud pass TS type validations", async () => {
@@ -58,12 +52,7 @@ describe("Mat", () => {
       cv.split(img, channels);
       cv.merge(channels, img);
     } catch (err) {
-      if (typeof err === "number") {
-        const error = cv.exceptionFromPtr(err);
-        throw error;
-      } else {
-        throw err;
-      }
+      throw translateException(err);
     }
   });
 });

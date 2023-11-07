@@ -42,3 +42,5 @@ export * from "./softdouble";
 export * from "./softfloat";
 export * from "./video_track";
 export * from "./_hacks";
+export * from "./Tracker";
+export * from "./TrackerMIL";
