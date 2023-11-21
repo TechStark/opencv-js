@@ -1,4 +1,4 @@
-import { bool, FileNode, FileStorage, InputArrayOfArrays, Ptr } from "./_types";
+import { bool, DescriptorMatcher, FileNode, FileStorage, InputArrayOfArrays, Ptr } from "./_types";
 
 /**
  * This matcher trains [cv::flann::Index](#d1/db2/classcv_1_1flann_1_1Index}) on a train descriptor
@@ -12,7 +12,7 @@ import { bool, FileNode, FileStorage, InputArrayOfArrays, Ptr } from "./_types";
  * [opencv2/features2d.hpp](https://github.com/opencv/opencv/tree/master/modules/core/include/opencv2/features2d.hpp#L1187).
  *
  */
-export declare class FlannBasedMatcher {
+export declare class FlannBasedMatcher extends DescriptorMatcher {
   public constructor(indexParams?: Ptr, searchParams?: Ptr);
 
   /**
