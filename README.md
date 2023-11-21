@@ -1363,3 +1363,7 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
 ```
 
 </details>
+
+# Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=techstark/opencv-js&type=Date)](https://star-history.com/#techstark/opencv-js&Date)
