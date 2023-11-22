@@ -1,4 +1,5 @@
 import {
+  Algorithm,
   bool,
   FileNode,
   FileStorage,
@@ -18,7 +19,7 @@ import {
  * [opencv2/features2d.hpp](https://github.com/opencv/opencv/tree/master/modules/core/include/opencv2/features2d.hpp#L860).
  *
  */
-export declare class DescriptorMatcher {
+export declare class DescriptorMatcher extends Algorithm {
   /**
    *   If the collection is not empty, the new descriptors are added to existing train descriptors.
    *

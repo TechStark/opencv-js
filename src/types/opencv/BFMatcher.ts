@@ -1,4 +1,4 @@
-import { bool, int, Ptr } from "./_types";
+import { bool, DescriptorMatcher, int, Ptr } from "./_types";
 
 /**
  * For each descriptor in the first set, this matcher finds the closest descriptor in the second set by
@@ -8,7 +8,7 @@ import { bool, int, Ptr } from "./_types";
  * [opencv2/features2d.hpp](https://github.com/opencv/opencv/tree/master/modules/core/include/opencv2/features2d.hpp#L1140).
  *
  */
-export declare class BFMatcher {
+export declare class BFMatcher extends DescriptorMatcher {
   public constructor(normType?: int, crossCheck?: bool);
 
   /**
