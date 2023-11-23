@@ -33,7 +33,8 @@ TypeScript is supported (thanks to `mirada`).
 - `npm install @techstark/opencv-js`
 - or `yarn add @techstark/opencv-js`
 - `import cv from "@techstark/opencv-js"`
-- or `import * as cv from "@techstark/opencv-js"` for Angular
+  - for TypeScript, set `"esModuleInterop": true` in `tsconfig.json`
+- or `import * as cv from "@techstark/opencv-js"`
 
 # Webpack Configuration (for browser usage)
 
