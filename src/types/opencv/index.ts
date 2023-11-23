@@ -1,4 +1,4 @@
-import * as _CV from "./_types";
-export type CV = typeof _CV;
-export * from "./_hacks";
+import * as _cv from "./_types";
+export type CV = typeof _cv;
+
 export * from "./_types";

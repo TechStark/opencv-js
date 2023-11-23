@@ -219,15 +219,6 @@ export declare class DescriptorMatcher extends Algorithm {
   public write(fs: FileStorage): FileStorage;
 
   public write(fs: Ptr, name?: String): Ptr;
-
-  /**
-   * @param descriptorMatcherType Descriptor matcher type. Now the following matcher types are
-   * supported:
-   *   BruteForce (it uses L2 )BruteForce-L1BruteForce-HammingBruteForce-Hamming(2)FlannBased
-   */
-  public static create(descriptorMatcherType: String): Ptr;
-
-  public static create(matcherType: any): Ptr;
 }
 
 export declare const FLANNBASED: MatcherType; // initializer: = 1
