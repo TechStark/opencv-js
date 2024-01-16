@@ -15,6 +15,7 @@ export * from "./DynamicBitset";
 export * from "./Exception";
 export * from "./Feature2D";
 export * from "./features2d_draw";
+export * from "./fisheye";
 export * from "./FlannBasedMatcher";
 export * from "./HOGDescriptor";
 export * from "./imgproc_color_conversions";
