@@ -20,8 +20,8 @@ jobs:
       - name: Install an emsdk version
         run: |
           cd emsdk
-          ./emsdk install 2.0.11
-          ./emsdk activate 2.0.11
+          ./emsdk install 2.0.10
+          ./emsdk activate 2.0.10
 
       - name: Checkout opencv
         uses: actions/checkout@v3
@@ -32,7 +32,7 @@ jobs:
       - name: Build opencv.js
         run: |
           source emsdk/emsdk_env.sh
-          emcmake python opencv/platforms/js/build_js.py build_js
+          emcmake python opencv/platforms/js/build_js.py build_js --build_flags="-s WASM_ASYNC_COMPILATION=0"
 
       - name: Upload opencv_js
         uses: actions/upload-artifact@v3
