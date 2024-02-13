@@ -12,6 +12,11 @@ jobs:
   build-opencv:
     runs-on: ubuntu-latest
     steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libv4l-dev
+
       - name: Checkout emsdk
         uses: actions/checkout@v3
         with:
@@ -41,5 +46,5 @@ jobs:
           path: build_js/bin/opencv.js
           retention-days: 30
 
-      - name: Check out repository code
-        uses: actions/checkout@v3
+      # - name: Check out repository code
+      #   uses: actions/checkout@v3
