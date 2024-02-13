@@ -18,7 +18,7 @@ jobs:
           sudo apt-get install -y libv4l-dev
 
       - name: Checkout emsdk
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: emscripten-core/emsdk
           path: emsdk
@@ -29,7 +29,7 @@ jobs:
           ./emsdk activate 2.0.10
 
       - name: Checkout opencv
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: opencv/opencv
           ref: 4.9.0
@@ -40,11 +40,11 @@ jobs:
           emcmake python opencv/platforms/js/build_js.py build_js --build_flags="-s WASM_ASYNC_COMPILATION=0"
 
       - name: Upload opencv_js
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: opencv.js
           path: build_js/bin/opencv.js
           retention-days: 30
 
       # - name: Check out repository code
-      #   uses: actions/checkout@v3
+      #   uses: actions/checkout@v4
