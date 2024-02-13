@@ -16,7 +16,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libv4l-dev
-          sudo ln -s /usr/include/libv4l1-videodev.h /usr/include/linux/videodev2.h 
 
       - name: Checkout emsdk
         uses: actions/checkout@v3
