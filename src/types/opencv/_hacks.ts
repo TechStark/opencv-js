@@ -32,6 +32,12 @@ export declare class Point {
   public y: number;
 }
 
+export declare class Circle {
+  public constructor(center: Point, radius: number);
+  public center: Point;
+  public radius: number;
+}
+
 export declare class Size {
   public constructor(width: number, height: number);
   public width: number;
