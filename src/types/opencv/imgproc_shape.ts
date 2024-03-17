@@ -1,5 +1,6 @@
 import {
   bool,
+  Circle,
   double,
   float,
   InputArray,
@@ -12,6 +13,7 @@ import {
   Rect,
   RotatedRect,
 } from "./_types";
+
 /*
  * # Structural Analysis and Shape Descriptors
  *
@@ -530,16 +532,10 @@ export declare function minAreaRect(points: InputArray): RotatedRect;
  * The function finds the minimal enclosing circle of a 2D point set using an iterative algorithm.
  *
  * @param points Input vector of 2D points, stored in std::vector<> or Mat
- *
- * @param center Output center of the circle.
- *
- * @param radius Output radius of the circle.
  */
 export declare function minEnclosingCircle(
   points: InputArray,
-  center: any,
-  radius: any,
-): void;
+): Circle;
 
 /**
  * The function finds a triangle of minimum area enclosing the given set of 2D points and returns its
