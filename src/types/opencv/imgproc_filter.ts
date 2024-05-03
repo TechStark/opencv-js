@@ -529,7 +529,7 @@ export declare function morphologyDefaultBorderValue(): Scalar;
 export declare function morphologyEx(
   src: InputArray,
   dst: OutputArray,
-  op: int,
+  op: int | MorphTypes,
   kernel: InputArray,
   anchor?: Point,
   iterations?: int,

@@ -1600,12 +1600,38 @@ export declare class Mat extends EmscriptenEmbindInstance {
   public shortPtr(i: any, j: any): any;
   public ushortPtr(i: any, j: any): any;
   public intPtr(i: any, j: any): any;
-  public ucharAt(i: any): any;
-  public charAt(i: any): any;
   public floatPtr(i: any, j: any): any;
-  public doubleAt(i: int, j: int): any;
   public doublePtr(i: any, j: any): any;
   public intPtr(i: any, j: any): any;
+
+  public charAt(i0: number): number;
+  public charAt(i0: number, i1: number): number;
+  public charAt(i0: number, i1: number, i2: number): number;
+
+  public ucharAt(i0: number): number;
+  public ucharAt(i0: number, i1: number): number;
+  public ucharAt(i0: number, i1: number, i2: number): number;
+
+  public shortAt(i0: number): number;
+  public shortAt(i0: number, i1: number): number;
+  public shortAt(i0: number, i1: number, i2: number): number;
+
+  public ushortAt(i0: number): number;
+  public ushortAt(i0: number, i1: number): number;
+  public ushortAt(i0: number, i1: number, i2: number): number;
+
+  public intAt(i0: number): number;
+  public intAt(i0: number, i1: number): number;
+  public intAt(i0: number, i1: number, i2: number): number;
+
+  public floatAt(i0: number): number;
+  public floatAt(i0: number, i1: number): number;
+  public floatAt(i0: number, i1: number, i2: number): number;
+
+  public doubleAt(i0: number): number;
+  public doubleAt(i0: number, i1: number): number;
+  public doubleAt(i0: number, i1: number, i2: number): number;
+
   public setTo(value: Mat | Scalar, mask?: Mat): Mat;
   /**
    * Sometimes, you will have to play with certain region of images.
