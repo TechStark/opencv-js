@@ -1,4 +1,4 @@
-import { bool, DescriptorMatcher, int, Ptr } from "./_types";
+import type { bool, DescriptorMatcher, int, Ptr } from "./_types";
 
 /**
  * For each descriptor in the first set, this matcher finds the closest descriptor in the second set by

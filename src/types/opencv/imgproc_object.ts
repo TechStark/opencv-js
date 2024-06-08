@@ -1,4 +1,4 @@
-import { InputArray, int, OutputArray } from "./_types";
+import type { InputArray, int, OutputArray } from "./_types";
 /*
  * # Object Detection
  *

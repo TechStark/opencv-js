@@ -1,4 +1,4 @@
-import { int } from "./_types";
+import type { int } from "./_types";
 
 export declare class Logger {
   public static error(fmt: any, arg121: any): int;

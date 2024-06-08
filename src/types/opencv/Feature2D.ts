@@ -1,4 +1,4 @@
-import { Algorithm, KeyPointVector, Mat, OutputArray } from "./_types";
+import type { Algorithm, KeyPointVector, Mat, OutputArray } from "./_types";
 
 /**
  * https://docs.opencv.org/4.9.0/d0/d13/classcv_1_1Feature2D.html
