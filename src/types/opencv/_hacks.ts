@@ -92,7 +92,7 @@ export declare function FS_createDataFile(
   arg5: boolean,
 ): any;
 
-import { Algorithm, LineTypes, Mat, NormTypes, RotatedRect } from ".";
+import { Algorithm, type LineTypes, Mat, type NormTypes, RotatedRect } from ".";
 import "../_cv";
 
 /**

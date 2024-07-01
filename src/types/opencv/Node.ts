@@ -1,4 +1,4 @@
-import { double, int } from "./_types";
+import type { double, int } from "./_types";
 
 export declare class Node {
   /**

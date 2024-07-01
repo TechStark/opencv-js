@@ -1,4 +1,4 @@
-import {
+import type {
   diag_type,
   int,
   Matx_AddOp,

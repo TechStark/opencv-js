@@ -1,4 +1,4 @@
-import { InputArray, OutputArray, int, Size } from "./_types";
+import type { InputArray, OutputArray, int, Size } from "./_types";
 
 /**
  * Computes the undistortion and rectification maps for the image transform using remap.

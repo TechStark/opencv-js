@@ -1,4 +1,4 @@
-import { Feature2D, float, int } from "./_types";
+import type { Feature2D, float, int } from "./_types";
 
 /**
  * https://docs.opencv.org/4.9.0/db/d95/classcv_1_1ORB.html

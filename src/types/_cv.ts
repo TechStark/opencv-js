@@ -1,5 +1,5 @@
-import { FS } from "./emscripten";
-import { CV } from "./opencv";
+import type { FS } from "./emscripten";
+import type { CV } from "./opencv";
 
 declare global {
   var cv: CV & { FS: FS };

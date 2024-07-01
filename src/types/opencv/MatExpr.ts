@@ -1,4 +1,4 @@
-import { double, int, Mat, MatOp, Scalar } from "./_types";
+import type { double, int, Mat, MatOp, Scalar } from "./_types";
 
 /**
  * <a name="d1/d10/classcv_1_1MatExpr_1MatrixExpressions"></a>This is a list of implemented matrix

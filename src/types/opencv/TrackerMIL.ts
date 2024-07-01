@@ -1,3 +1,3 @@
-import { Tracker } from "./_types";
+import type { Tracker } from "./_types";
 
 export declare class TrackerMIL extends Tracker {}
