@@ -42,7 +42,6 @@ export * from "./RotatedRect";
 export * from "./softdouble";
 export * from "./softfloat";
 export * from "./video_track";
-export * from "./video_background_segm";
 export * from "./_hacks";
 export * from "./Tracker";
 export * from "./TrackerMIL";
