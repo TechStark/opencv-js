@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: opencv/opencv
-          ref: 4.9.0
+          ref: 4.10.0
           path: opencv
       - name: Build opencv.js
         run: |
