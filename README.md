@@ -53,12 +53,27 @@ module.exports = {
 };
 ```
 
-# What methods/properties are available
+# What methods and properties are available
+
+```js
+function getObjectKeys(obj) {
+  const keys = [];
+  for (let key in obj) {
+    if (!key.startsWith("dynCall")) {
+      keys.push(key);
+    }
+  }
+  console.log(keys);
+  return keys;
+}
+```
+
+### `cv`
 
 ```js
 import cv from "@techstark/opencv-js";
 
-Object.keys(cv).filter((key) => !key.includes("dynCall"));
+getObjectKeys(cv);
 ```
 
 <details style="max-height: 600px;">
@@ -143,6 +158,7 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "CharVector",
   "FloatVector",
   "DoubleVector",
+  "StringVector",
   "PointVector",
   "MatVector",
   "RectVector",
@@ -169,6 +185,7 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "HoughCircles",
   "HoughLines",
   "HoughLinesP",
+  "LUT",
   "Laplacian",
   "Rodrigues",
   "Scharr",
@@ -358,6 +375,7 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "CalibrateRobertson",
   "CascadeClassifier",
   "DescriptorMatcher",
+  "FaceDetectorYN",
   "FastFeatureDetector",
   "Feature2D",
   "GFTTDetector",
@@ -373,6 +391,8 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "QRCodeDetector",
   "QRCodeDetectorAruco",
   "QRCodeDetectorAruco_Params",
+  "SimpleBlobDetector",
+  "SimpleBlobDetector_Params",
   "Tonemap",
   "TonemapDrago",
   "TonemapMantiuk",
@@ -464,6 +484,7 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "CALIB_CB_LARGER",
   "CALIB_CB_MARKER",
   "CALIB_CB_NORMALIZE_IMAGE",
+  "CALIB_CB_PLAIN",
   "CALIB_CB_SYMMETRIC_GRID",
   "CALIB_FIX_ASPECT_RATIO",
   "CALIB_FIX_FOCAL_LENGTH",
@@ -562,7 +583,14 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "COLOR_BGR2YUV",
   "COLOR_BGR2YUV_I420",
   "COLOR_BGR2YUV_IYUV",
+  "COLOR_BGR2YUV_UYNV",
+  "COLOR_BGR2YUV_UYVY",
+  "COLOR_BGR2YUV_Y422",
+  "COLOR_BGR2YUV_YUNV",
+  "COLOR_BGR2YUV_YUY2",
+  "COLOR_BGR2YUV_YUYV",
   "COLOR_BGR2YUV_YV12",
+  "COLOR_BGR2YUV_YVYU",
   "COLOR_BGR5552BGR",
   "COLOR_BGR5552BGRA",
   "COLOR_BGR5552GRAY",
@@ -581,7 +609,14 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "COLOR_BGRA2RGBA",
   "COLOR_BGRA2YUV_I420",
   "COLOR_BGRA2YUV_IYUV",
+  "COLOR_BGRA2YUV_UYNV",
+  "COLOR_BGRA2YUV_UYVY",
+  "COLOR_BGRA2YUV_Y422",
+  "COLOR_BGRA2YUV_YUNV",
+  "COLOR_BGRA2YUV_YUY2",
+  "COLOR_BGRA2YUV_YUYV",
   "COLOR_BGRA2YUV_YV12",
+  "COLOR_BGRA2YUV_YVYU",
   "COLOR_BayerBG2BGR",
   "COLOR_BayerBG2BGRA",
   "COLOR_BayerBG2BGR_EA",
@@ -698,7 +733,14 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "COLOR_RGB2YUV",
   "COLOR_RGB2YUV_I420",
   "COLOR_RGB2YUV_IYUV",
+  "COLOR_RGB2YUV_UYNV",
+  "COLOR_RGB2YUV_UYVY",
+  "COLOR_RGB2YUV_Y422",
+  "COLOR_RGB2YUV_YUNV",
+  "COLOR_RGB2YUV_YUY2",
+  "COLOR_RGB2YUV_YUYV",
   "COLOR_RGB2YUV_YV12",
+  "COLOR_RGB2YUV_YVYU",
   "COLOR_RGBA2BGR",
   "COLOR_RGBA2BGR555",
   "COLOR_RGBA2BGR565",
@@ -707,7 +749,14 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "COLOR_RGBA2RGB",
   "COLOR_RGBA2YUV_I420",
   "COLOR_RGBA2YUV_IYUV",
+  "COLOR_RGBA2YUV_UYNV",
+  "COLOR_RGBA2YUV_UYVY",
+  "COLOR_RGBA2YUV_Y422",
+  "COLOR_RGBA2YUV_YUNV",
+  "COLOR_RGBA2YUV_YUY2",
+  "COLOR_RGBA2YUV_YUYV",
   "COLOR_RGBA2YUV_YV12",
+  "COLOR_RGBA2YUV_YVYU",
   "COLOR_RGBA2mRGBA",
   "COLOR_XYZ2BGR",
   "COLOR_XYZ2RGB",
@@ -1191,6 +1240,7 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "WARP_INVERSE_MAP",
   "WARP_POLAR_LINEAR",
   "WARP_POLAR_LOG",
+  "WARP_RELATIVE_MAP",
   "_InputArray_CUDA_GPU_MAT",
   "_InputArray_CUDA_HOST_MEM",
   "_InputArray_EXPR",
@@ -1360,6 +1410,80 @@ Object.keys(cv).filter((key) => !key.includes("dynCall"));
   "LOG_LEVEL_SILENT",
   "LOG_LEVEL_VERBOSE",
   "LOG_LEVEL_WARNING"
+]
+```
+
+</details>
+
+### `cv.Mat`
+
+```js
+import cv from "@techstark/opencv-js";
+
+const mat = new cv.Mat();
+getObjectKeys(mat);
+```
+
+<details style="max-height: 600px;">
+  <summary>Expand to see all methods and properties</summary>
+
+```json
+[
+  "rows",
+  "cols",
+  "matSize",
+  "step",
+  "data",
+  "data8S",
+  "data16U",
+  "data16S",
+  "data32S",
+  "data32F",
+  "data64F",
+  "elemSize",
+  "elemSize1",
+  "channels",
+  "convertTo",
+  "total",
+  "row",
+  "create",
+  "rowRange",
+  "copyTo",
+  "type",
+  "empty",
+  "colRange",
+  "step1",
+  "clone",
+  "depth",
+  "col",
+  "dot",
+  "mul",
+  "inv",
+  "t",
+  "roi",
+  "diag",
+  "isContinuous",
+  "setTo",
+  "size",
+  "ptr",
+  "ucharPtr",
+  "charPtr",
+  "shortPtr",
+  "ushortPtr",
+  "intPtr",
+  "floatPtr",
+  "doublePtr",
+  "charAt",
+  "ucharAt",
+  "shortAt",
+  "ushortAt",
+  "intAt",
+  "floatAt",
+  "doubleAt",
+  "isAliasOf",
+  "delete",
+  "isDeleted",
+  "deleteLater"
 ]
 ```
 
