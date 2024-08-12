@@ -22,7 +22,9 @@ describe("CV Keys", () => {
       "cv.Mat": new cv.Mat(),
     };
 
-    const objectKeyMap: { [key: string]: string[] } = {};
+    const objectKeyMap: { [key: string]: string[] } = {
+      buildInformation: cv.getBuildInformation(),
+    };
 
     for (const objName in objectNameMap) {
       const obj = objectNameMap[objName];
