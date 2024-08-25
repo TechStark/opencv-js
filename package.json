@@ -14,6 +14,14 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "test": "jest"
   },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "jimp": "^0.22.12",
+    "prettier": "^3.3.3",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.5.4"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TechStark/opencv-js.git"
@@ -28,13 +36,5 @@
   "bugs": {
     "url": "https://github.com/TechStark/opencv-js/issues"
   },
-  "homepage": "https://github.com/TechStark/opencv-js#readme",
-  "devDependencies": {
-    "@types/jest": "^29.5.6",
-    "jest": "^29.7.0",
-    "jimp": "^0.22.10",
-    "prettier": "^3.0.3",
-    "ts-jest": "^29.1.1",
-    "typescript": "^5.1.6"
-  }
+  "homepage": "https://github.com/TechStark/opencv-js#readme"
 }

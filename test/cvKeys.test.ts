@@ -1,10 +1,11 @@
 import path from "path";
 import fs from "fs";
+import * as ts from "typescript";
 import { setupOpenCv } from "./cv";
 
 beforeAll(setupOpenCv);
 
-describe("CV Keys", () => {
+describe("CV keys", () => {
   function getObjectKeys(obj: any) {
     const keys: string[] = [];
     for (let key in obj) {
@@ -16,7 +17,7 @@ describe("CV Keys", () => {
     return keys;
   }
 
-  it("output CV Keys", async () => {
+  it("output CV keys", async () => {
     const objectNameMap: { [key: string]: any } = {
       cv: cv,
       "cv.Mat": new cv.Mat(),
