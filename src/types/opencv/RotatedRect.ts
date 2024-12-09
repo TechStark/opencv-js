@@ -58,15 +58,14 @@ export declare class RotatedRect {
    */
   public constructor(point1: Point2f, point2: Point2f, point3: Point2f);
 
-  public boundingRect(): Rect;
+  public static boundingRect(rect: RotatedRect): Rect;
 
-  public boundingRect2f(): Rect_;
+  public static boundingRect2f(rect: RotatedRect): Rect;
 
   /**
-   *   returns 4 vertices of the rectangle
-   *
-   * @param pts The points array for storing rectangle vertices. The order is bottomLeft, topLeft,
-   * topRight, bottomRight.
+    returns 4 vertices of the rectangle
+   * @param rect The rotated rectangle
+   * @returns Array of 4 points in order: bottomLeft, topLeft, topRight, bottomRight
    */
-  public points(pts: Point2f): Point2f;
+  public static points(rect: RotatedRect): Point2f[];
 }
