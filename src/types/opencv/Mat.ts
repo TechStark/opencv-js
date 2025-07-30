@@ -1595,7 +1595,7 @@ export declare class Mat extends EmscriptenEmbindInstance {
 
   public updateContinuityFlag(): void;
 
-  public ucharPtr(i: any, j: any): any;
+  public ucharPtr(i: any, j?: any): any;
   public charPtr(i: any, j: any): any;
   public shortPtr(i: any, j: any): any;
   public ushortPtr(i: any, j: any): any;

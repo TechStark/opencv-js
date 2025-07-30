@@ -55,4 +55,24 @@ describe("Mat", () => {
       throw translateException(err);
     }
   });
+
+  it("should allow ucharPtr with optional second parameter", async () => {
+    try {
+      // Create a simple test matrix
+      const mat = new cv.Mat(3, 3, cv.CV_8UC1);
+      
+      // Test that ucharPtr works with just one parameter (row index)
+      // This should compile without TypeScript errors due to optional j parameter
+      const rowPtr = mat.ucharPtr(0);
+      expect(rowPtr).toBeDefined();
+      
+      // Test that ucharPtr works with two parameters (row and column)
+      const elementPtr = mat.ucharPtr(0, 0);
+      expect(elementPtr).toBeDefined();
+      
+      mat.delete();
+    } catch (err) {
+      throw translateException(err);
+    }
+  });
 });
