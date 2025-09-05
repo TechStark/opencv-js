@@ -101,3 +101,6 @@ export declare const CASCADE_SCALE_IMAGE: any; // initializer: = 2
 export declare const CASCADE_FIND_BIGGEST_OBJECT: any; // initializer: = 4
 
 export declare const CASCADE_DO_ROUGH_SEARCH: any; // initializer: = 8
+
+export { QRCodeDetector } from "./QRCodeDetector";
+export { QRCodeDetectorAruco, QRCodeDetectorAruco_Params } from "./QRCodeDetectorAruco";
