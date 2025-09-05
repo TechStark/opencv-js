@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "build:contrib": "./scripts/build-contrib.sh",
     "prepack": "npm run build",
     "format": "prettier --write \"src/**/*.ts\"",
     "test": "jest"
