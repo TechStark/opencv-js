@@ -533,9 +533,7 @@ export declare function minAreaRect(points: InputArray): RotatedRect;
  *
  * @param points Input vector of 2D points, stored in std::vector<> or Mat
  */
-export declare function minEnclosingCircle(
-  points: InputArray,
-): Circle;
+export declare function minEnclosingCircle(points: InputArray): Circle;
 
 /**
  * The function finds a triangle of minimum area enclosing the given set of 2D points and returns its
