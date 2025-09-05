@@ -19,6 +19,7 @@ export * from "./fisheye";
 export * from "./FlannBasedMatcher";
 export * from "./HOGDescriptor";
 export * from "./imgproc_color_conversions";
+export * from "./imgproc_colormap";
 export * from "./imgproc_draw";
 export * from "./imgproc_feature";
 export * from "./imgproc_filter";
