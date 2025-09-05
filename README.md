@@ -6,6 +6,56 @@ The file `opencv.js` was downloaded from https://docs.opencv.org/4.11.0/opencv.j
 
 TypeScript is supported (thanks to `mirada`).
 
+## OpenCV Contrib Modules Support
+
+**NEW**: This package now includes TypeScript definitions for OpenCV contrib modules including `ximgproc.thinning()`.
+
+**Note**: The default `opencv.js` build from docs.opencv.org does not include contrib modules. To use contrib modules like `cv.ximgproc.thinning()`, you need to build OpenCV.js with contrib modules enabled.
+
+### Using contrib modules
+
+To use contrib modules such as `cv.ximgproc.thinning()`:
+
+1. **Build with contrib** (recommended): Use the GitHub Actions workflow in this repository to build opencv.js with contrib modules, or build locally using the instructions below.
+
+2. **Build locally**:
+   ```bash
+   # Clone repositories
+   git clone --branch 4.11.0 https://github.com/opencv/opencv.git
+   git clone --branch 4.11.0 https://github.com/opencv/opencv_contrib.git
+   
+   # Install emscripten
+   git clone https://github.com/emscripten-core/emsdk.git
+   cd emsdk && ./emsdk install 2.0.10 && ./emsdk activate 2.0.10
+   source emsdk_env.sh && cd ..
+   
+   # Build opencv.js with contrib
+   emcmake python opencv/platforms/js/build_js.py build_js \
+     --cmake_option="-DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules" \
+     --cmake_option="-DBUILD_opencv_ximgproc=ON"
+   ```
+
+3. **Replace the opencv.js file** in this package with your contrib-enabled build.
+
+### Example usage with contrib modules
+
+```js
+import cv from "@techstark/opencv-js";
+
+cv.onRuntimeInitialized = () => {
+  // Use ximgproc thinning function
+  const src = cv.imread('input_image');
+  const dst = new cv.Mat();
+  
+  // Apply thinning with Zhang-Suen algorithm
+  cv.ximgproc.thinning(src, dst, cv.ximgproc.THINNING_ZHANGSUEN);
+  
+  console.log("Thinning complete!");
+  dst.delete();
+  src.delete();
+};
+```
+
 # Basic Usage
 
 ## >=4.11

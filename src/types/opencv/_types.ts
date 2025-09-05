@@ -45,3 +45,4 @@ export * from "./video_track";
 export * from "./_hacks";
 export * from "./Tracker";
 export * from "./TrackerMIL";
+export * from "./ximgproc";
