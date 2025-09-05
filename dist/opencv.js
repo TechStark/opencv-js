@@ -4,10 +4,8 @@
     define(function () {
       return (root.cv = factory());
     });
-  } else if (typeof module === 'object' && module.exports) {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like environments that support module.exports,
-    // like Node.
+  } else if (typeof module === 'object' && module !== null) {
+    // Node.js/CommonJS environment - handle cases where module.exports might be null/undefined
     module.exports = factory();
   } else if (typeof window === 'object') {
     // Browser globals
@@ -16,10 +14,16 @@
     // Web worker
     root.cv = factory();
   } else {
-    // Other shells, e.g. d8
+    // Other shells, e.g. d8 - ensure root exists before setting properties
+    root = root || (typeof globalThis !== 'undefined' ? globalThis : 
+                   typeof global !== 'undefined' ? global : 
+                   typeof self !== 'undefined' ? self : {});
     root.cv = factory();
   }
-}(this, function () {
+}(typeof globalThis !== 'undefined' ? globalThis : 
+  typeof global !== 'undefined' ? global :
+  typeof self !== 'undefined' ? self :
+  typeof window !== 'undefined' ? window : this, function () {
   
 var cv = (() => {
   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
