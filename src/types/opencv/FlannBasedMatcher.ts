@@ -1,4 +1,11 @@
-import type { bool, DescriptorMatcher, FileNode, FileStorage, InputArrayOfArrays, Ptr } from "./_types";
+import type {
+  bool,
+  DescriptorMatcher,
+  FileNode,
+  FileStorage,
+  InputArrayOfArrays,
+  Ptr,
+} from "./_types";
 
 /**
  * This matcher trains [cv::flann::Index](#d1/db2/classcv_1_1flann_1_1Index}) on a train descriptor
