@@ -65,9 +65,9 @@ export declare function boundingRect(array: InputArray): Rect;
  *
  * @param box The input rotated rectangle. It may be the output of
  *
- * @param points The output array of four vertices of rectangles.
+ * @returns An array of four vertices of the rectangle (Point2f[])
  */
-export declare function boxPoints(box: RotatedRect, points: OutputArray): void;
+export declare function boxPoints(box: RotatedRect): Point2f[];
 
 /**
  * image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0

@@ -9,10 +9,10 @@ import type {
 
 /**
  * QR Code detection and decoding class.
- * 
+ *
  * This class implements QR code detection and decoding functionality.
  * It can detect QR codes in an image and decode their content.
- * 
+ *
  * Source:
  * [opencv2/objdetect.hpp](https://github.com/opencv/opencv/tree/master/modules/objdetect/include/opencv2/objdetect.hpp).
  */
@@ -24,7 +24,7 @@ export declare class QRCodeDetector {
 
   /**
    * Detects QR code in image and returns the quadrangle containing the code.
-   * 
+   *
    * @param img grayscale or color (BGR) image containing (or not) QR code.
    * @param points Output vector of vertices of the minimum-area quadrangle containing the code.
    */
@@ -32,7 +32,7 @@ export declare class QRCodeDetector {
 
   /**
    * Decodes QR code in image once it's found by the detect() method.
-   * 
+   *
    * @param img grayscale or color (BGR) image containing QR code.
    * @param points Quadrangle vertices found by detect() method (or some other algorithm).
    * @param straight_qrcode The optional output image containing rectified and binarized QR code
@@ -40,12 +40,12 @@ export declare class QRCodeDetector {
   public decode(
     img: InputArray,
     points: InputArray,
-    straight_qrcode?: OutputArray
+    straight_qrcode?: OutputArray,
   ): String;
 
   /**
    * Both detects and decodes QR code
-   * 
+   *
    * @param img grayscale or color (BGR) image containing QR code.
    * @param points optional output array of vertices of the found QR code quadrangle. Will be empty if not found.
    * @param straight_qrcode The optional output image containing rectified and binarized QR code
@@ -53,12 +53,12 @@ export declare class QRCodeDetector {
   public detectAndDecode(
     img: InputArray,
     points?: OutputArray,
-    straight_qrcode?: OutputArray
+    straight_qrcode?: OutputArray,
   ): String;
 
   /**
    * Detects QR codes in image and returns the vector of the quadrangles containing the codes.
-   * 
+   *
    * @param img grayscale or color (BGR) image containing (or not) QR codes.
    * @param points Output vector of vector of vertices of the minimum-area quadrangle containing the codes.
    */
@@ -66,7 +66,7 @@ export declare class QRCodeDetector {
 
   /**
    * Decodes QR codes in image once it's found by the detectMulti() method.
-   * 
+   *
    * @param img grayscale or color (BGR) image containing QR codes.
    * @param points vector of Quadrangle vertices found by detectMulti() method (or some other algorithm).
    * @param decoded_info UTF8-encoded output vector of String or empty vector of String if the codes cannot be decoded.
@@ -76,12 +76,12 @@ export declare class QRCodeDetector {
     img: InputArray,
     points: InputArray,
     decoded_info: any,
-    straight_qrcode?: OutputArrayOfArrays
+    straight_qrcode?: OutputArrayOfArrays,
   ): bool;
 
   /**
    * Both detects and decodes QR codes
-   * 
+   *
    * @param img grayscale or color (BGR) image containing QR codes.
    * @param decoded_info UTF8-encoded output vector of String or empty vector of String if the codes cannot be decoded.
    * @param points optional output vector of vertices of the found QR code quadrangles. Will be empty if not found.
@@ -91,7 +91,7 @@ export declare class QRCodeDetector {
     img: InputArray,
     decoded_info: any,
     points?: OutputArrayOfArrays,
-    straight_qrcode?: OutputArrayOfArrays
+    straight_qrcode?: OutputArrayOfArrays,
   ): bool;
 
   /**
