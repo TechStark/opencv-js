@@ -1488,6 +1488,7 @@
     "matSize",
     "mul",
     "ptr",
+    "reshape",
     "roi",
     "row",
     "rowRange",

@@ -1,8 +1,12 @@
 import "../src";
+import { extendMatWithReshape } from "../src/mat-extensions";
 
 export async function setupOpenCv() {
   const _cv = await require("../dist/opencv.js");
   global.cv = _cv;
+  
+  // Apply our extensions after OpenCV is loaded
+  extendMatWithReshape();
 }
 
 export function translateException(err: any) {
