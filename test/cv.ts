@@ -1,22 +1,24 @@
 import "../src";
 
 export async function setupOpenCv() {
-  const _cv = require("../dist/opencv.js");
-  
+  const cvModule = require("../dist/opencv.js");
+
   // Support both Promise and onRuntimeInitialized callback APIs
-  if (_cv instanceof Promise) {
+  let cv;
+  if (cvModule instanceof Promise) {
     // Promise API
-    const cv = await _cv;
-    global.cv = cv;
+    cv = await cvModule;
   } else {
     // Callback API
     await new Promise<void>((resolve) => {
-      _cv.onRuntimeInitialized = () => {
-        global.cv = _cv;
+      cvModule.onRuntimeInitialized = () => {
         resolve();
       };
     });
+    cv = cvModule;
   }
+  global.cv = cv;
+  return { cv };
 }
 
 export function translateException(err: any) {

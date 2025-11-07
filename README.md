@@ -8,29 +8,27 @@ TypeScript is supported (thanks to `mirada`).
 
 # Basic Usage
 
-## >=4.11
-
 ```js
-import cvReadyPromise from "@techstark/opencv-js";
+import cvModule from "@techstark/opencv-js";
 
 async function main() {
-  const cv = await cvReadyPromise;
+  // This works with both Promise and callback APIs
+  let cv;
+  if (cvModule instanceof Promise) {
+    cv = await cvModule;
+  } else {
+    await new Promise((resolve) => {
+      cvModule.onRuntimeInitialized = () => resolve();
+    });
+    cv = cvModule;
+  }
+
   console.log("OpenCV.js is ready!");
   // You can now use OpenCV functions here
   console.log(cv.getBuildInformation());
 }
-```
 
-## <=4.10
-
-```js
-import cv from "@techstark/opencv-js";
-
-cv.onRuntimeInitialized = () => {
-  console.log("OpenCV.js is ready!");
-  // You can now use OpenCV functions here
-  console.log(cv.getBuildInformation());
-};
+main();
 ```
 
 # Code Examples
