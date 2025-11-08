@@ -18,7 +18,6 @@ export async function setupOpenCv() {
     cv = cvModule;
   }
   global.cv = cv;
-  return { cv };
 }
 
 export function translateException(err: any) {

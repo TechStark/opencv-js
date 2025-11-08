@@ -11,8 +11,7 @@ TypeScript is supported (thanks to `mirada`).
 ```js
 import cvModule from "@techstark/opencv-js";
 
-async function main() {
-  // This works with both Promise and callback APIs
+async function getCv() {
   let cv;
   if (cvModule instanceof Promise) {
     cv = await cvModule;
@@ -22,7 +21,11 @@ async function main() {
     });
     cv = cvModule;
   }
+  return cv;
+}
 
+async function main() {
+  const cv = await getCv();
   console.log("OpenCV.js is ready!");
   // You can now use OpenCV functions here
   console.log(cv.getBuildInformation());
