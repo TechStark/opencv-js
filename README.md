@@ -21,11 +21,11 @@ async function getOpenCv() {
     });
     cv = cvModule;
   }
-  return cv;
+  return { cv };
 }
 
 async function main() {
-  const cv = await getOpenCv();
+  const { cv } = await getOpenCv();
   console.log("OpenCV.js is ready!");
   // You can now use OpenCV functions here
   console.log(cv.getBuildInformation());
