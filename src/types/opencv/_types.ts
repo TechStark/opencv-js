@@ -42,6 +42,7 @@ export * from "./ORB";
 export * from "./PCA";
 export * from "./photo_inpaint";
 export * from "./RotatedRect";
+export * from "./SIFT";
 export * from "./softdouble";
 export * from "./softfloat";
 export * from "./video_track";

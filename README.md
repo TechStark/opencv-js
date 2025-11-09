@@ -89,6 +89,49 @@ module.exports = {
 
 The TypeScript type declarations may not be up to date with the latest OpenCV.js. Refer to [cvKeys.json](doc/cvKeys.json) to check the available methods and properties at runtime.
 
+# Feature Detection (SIFT, SURF, etc.)
+
+This package now includes TypeScript definitions for SIFT (Scale-Invariant Feature Transform) and other feature detection algorithms. 
+
+**Note**: SIFT and SURF require building OpenCV with `OPENCV_ENABLE_NONFREE=ON`. The pre-built opencv.js included in this package is now built with NONFREE algorithms enabled.
+
+## Using SIFT
+
+```js
+import cvModule from "@techstark/opencv-js";
+
+async function detectFeatures() {
+  const { cv } = await getOpenCv();
+  
+  // Create SIFT detector
+  const sift = new cv.SIFT();
+  
+  // Load image (example with grayscale mat)
+  const img = cv.imread(imageElement);
+  const gray = new cv.Mat();
+  cv.cvtColor(img, gray, cv.COLOR_RGBA2GRAY);
+  
+  // Detect keypoints and compute descriptors
+  const keypoints = new cv.KeyPointVector();
+  const descriptors = new cv.Mat();
+  sift.detectAndCompute(gray, new cv.Mat(), keypoints, descriptors);
+  
+  console.log(`Found ${keypoints.size()} keypoints`);
+  
+  // Don't forget to delete objects to free memory
+  keypoints.delete();
+  descriptors.delete();
+  sift.delete();
+  gray.delete();
+  img.delete();
+}
+```
+
+Other available feature detectors include:
+- `cv.ORB()` - Oriented FAST and Rotated BRIEF
+- `cv.AKAZE()` - Accelerated-KAZE
+- `cv.SIFT()` - Scale-Invariant Feature Transform (requires NONFREE)
+
 # Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=techstark/opencv-js&type=Date)](https://star-history.com/#techstark/opencv-js&Date)
