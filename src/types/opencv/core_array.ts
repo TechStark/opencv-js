@@ -821,7 +821,7 @@ export declare function dft(
  * Saturation is not applied when the output array has the depth CV_32S. You may even get result of an
  * incorrect sign in the case of overflow.
  *
- * Note: The scalar-by-array overload `divide(scale, src2, dst, dtype)` available in C++ OpenCV 
+ * Note: The scalar-by-array overload `divide(scale, src2, dst, dtype)` available in C++ OpenCV
  * is not available in OpenCV.js. To achieve scalar division, use `cv.divide(cv.Mat.ones(...), src, dst, scale)`.
  *
  * [multiply], [add], [subtract]
