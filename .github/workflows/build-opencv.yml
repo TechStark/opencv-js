@@ -1,4 +1,4 @@
-name: Build OpenCV.js
+name: Build OpenCV.js with contrib modules
 
 on:
   # push:
@@ -32,12 +32,23 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: opencv/opencv
-          ref: 4.10.0
+          ref: 4.11.0
           path: opencv
-      - name: Build opencv.js
+          
+      - name: Checkout opencv_contrib
+        uses: actions/checkout@v4
+        with:
+          repository: opencv/opencv_contrib
+          ref: 4.11.0
+          path: opencv_contrib
+          
+      - name: Build opencv.js with contrib modules
         run: |
           source emsdk/emsdk_env.sh
-          emcmake python opencv/platforms/js/build_js.py build_js --build_flags="-s WASM_ASYNC_COMPILATION=0"
+          emcmake python opencv/platforms/js/build_js.py build_js \
+            --cmake_option="-DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib/modules" \
+            --cmake_option="-DBUILD_opencv_ximgproc=ON" \
+            --build_flags="-s WASM_ASYNC_COMPILATION=0"
 
       - name: Upload opencv_js
         uses: actions/upload-artifact@v4
