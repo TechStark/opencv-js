@@ -524,4 +524,4 @@ export declare const COLOR_COLORCVT_MAX: ColorConversionCodes; // initializer: =
  * [Color conversions]
  *
  */
-export type ColorConversionCodes = any;
+export type ColorConversionCodes = number;

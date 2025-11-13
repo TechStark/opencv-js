@@ -911,8 +911,8 @@ export declare const MORPH_HITMISS: MorphTypes; // initializer: = 7
 
 export declare const FILTER_SCHARR: SpecialFilter; // initializer: = -1
 
-export type MorphShapes = any;
+export type MorphShapes = number;
 
-export type MorphTypes = any;
+export type MorphTypes = number;
 
-export type SpecialFilter = any;
+export type SpecialFilter = number;

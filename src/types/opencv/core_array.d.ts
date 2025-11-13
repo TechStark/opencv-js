@@ -3051,7 +3051,7 @@ export declare const ROTATE_90_COUNTERCLOCKWISE: RotateFlags; // initializer: = 
  * [borderInterpolate], [copyMakeBorder]
  *
  */
-export type BorderTypes = any;
+export type BorderTypes = number;
 
 /**
  * Various border types, image boundaries are denoted with `|`
@@ -3059,7 +3059,7 @@ export type BorderTypes = any;
  * [borderInterpolate], [copyMakeBorder]
  *
  */
-export type CmpTypes = any;
+export type CmpTypes = number;
 
 /**
  * Various border types, image boundaries are denoted with `|`
@@ -3067,7 +3067,7 @@ export type CmpTypes = any;
  * [borderInterpolate], [copyMakeBorder]
  *
  */
-export type DecompTypes = any;
+export type DecompTypes = number;
 
 /**
  * Various border types, image boundaries are denoted with `|`
@@ -3075,7 +3075,7 @@ export type DecompTypes = any;
  * [borderInterpolate], [copyMakeBorder]
  *
  */
-export type DftFlags = any;
+export type DftFlags = number;
 
 /**
  * Various border types, image boundaries are denoted with `|`
@@ -3083,7 +3083,7 @@ export type DftFlags = any;
  * [borderInterpolate], [copyMakeBorder]
  *
  */
-export type GemmFlags = any;
+export type GemmFlags = number;
 
 /**
  * Various border types, image boundaries are denoted with `|`
@@ -3091,7 +3091,7 @@ export type GemmFlags = any;
  * [borderInterpolate], [copyMakeBorder]
  *
  */
-export type NormTypes = any;
+export type NormTypes = number;
 
 /**
  * Various border types, image boundaries are denoted with `|`
@@ -3099,4 +3099,4 @@ export type NormTypes = any;
  * [borderInterpolate], [copyMakeBorder]
  *
  */
-export type RotateFlags = any;
+export type RotateFlags = number;

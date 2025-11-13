@@ -63,7 +63,8 @@ export declare class RotatedRect {
   public static boundingRect2f(rect: RotatedRect): Rect;
 
   /**
-    returns 4 vertices of the rectangle
+   * returns 4 vertices of the rectangle
+   *
    * @param rect The rotated rectangle
    * @returns Array of 4 points in order: bottomLeft, topLeft, topRight, bottomRight
    */

@@ -715,14 +715,14 @@ export declare const CONTOURS_MATCH_I2: ShapeMatchModes; // initializer: =2
 
 export declare const CONTOURS_MATCH_I3: ShapeMatchModes; // initializer: =3
 
-export type ConnectedComponentsAlgorithmsTypes = any;
+export type ConnectedComponentsAlgorithmsTypes = number;
 
-export type ConnectedComponentsTypes = any;
+export type ConnectedComponentsTypes = number;
 
-export type ContourApproximationModes = any;
+export type ContourApproximationModes = number;
 
-export type RectanglesIntersectTypes = any;
+export type RectanglesIntersectTypes = number;
 
-export type RetrievalModes = any;
+export type RetrievalModes = number;
 
-export type ShapeMatchModes = any;
+export type ShapeMatchModes = number;

@@ -557,7 +557,7 @@ export declare const THRESH_TRIANGLE: ThresholdTypes; // initializer: = 16
  * [adaptiveThreshold]
  *
  */
-export type AdaptiveThresholdTypes = any;
+export type AdaptiveThresholdTypes = number;
 
 /**
  * adaptive threshold algorithm
@@ -565,7 +565,7 @@ export type AdaptiveThresholdTypes = any;
  * [adaptiveThreshold]
  *
  */
-export type DistanceTransformLabelTypes = any;
+export type DistanceTransformLabelTypes = number;
 
 /**
  * adaptive threshold algorithm
@@ -573,7 +573,7 @@ export type DistanceTransformLabelTypes = any;
  * [adaptiveThreshold]
  *
  */
-export type DistanceTransformMasks = any;
+export type DistanceTransformMasks = number;
 
 /**
  * adaptive threshold algorithm
@@ -581,7 +581,7 @@ export type DistanceTransformMasks = any;
  * [adaptiveThreshold]
  *
  */
-export type DistanceTypes = any;
+export type DistanceTypes = number;
 
 /**
  * adaptive threshold algorithm
@@ -589,7 +589,7 @@ export type DistanceTypes = any;
  * [adaptiveThreshold]
  *
  */
-export type FloodFillFlags = any;
+export type FloodFillFlags = number;
 
 /**
  * adaptive threshold algorithm
@@ -597,7 +597,7 @@ export type FloodFillFlags = any;
  * [adaptiveThreshold]
  *
  */
-export type GrabCutClasses = any;
+export type GrabCutClasses = number;
 
 /**
  * adaptive threshold algorithm
@@ -605,7 +605,7 @@ export type GrabCutClasses = any;
  * [adaptiveThreshold]
  *
  */
-export type GrabCutModes = any;
+export type GrabCutModes = number;
 
 /**
  * adaptive threshold algorithm
@@ -613,4 +613,4 @@ export type GrabCutModes = any;
  * [adaptiveThreshold]
  *
  */
-export type ThresholdTypes = any;
+export type ThresholdTypes = number;
