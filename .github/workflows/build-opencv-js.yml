@@ -1,0 +1,133 @@
+name: Build OpenCV.js
+
+on:
+  # push:
+  #   branches:
+  #     - build-opencv
+  #     - main
+  workflow_dispatch:
+    inputs:
+      opencv_version:
+        description: "OpenCV version/branch to build"
+        required: false
+        default: "4.13.0"
+        type: string
+      emscripten_version:
+        description: "Emscripten version to use"
+        required: false
+        default: "2.0.10"
+        type: string
+      build_flags:
+        description: "Additional build flags (leave empty for defaults)"
+        required: false
+        default: ""
+        type: string
+
+jobs:
+  build-opencv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 cmake libv4l-dev
+
+      - name: Checkout emsdk
+        uses: actions/checkout@v5
+        with:
+          repository: emscripten-core/emsdk
+          path: emsdk
+
+      - name: Install and activate Emscripten
+        run: |
+          cd emsdk
+          ./emsdk install ${{ github.event.inputs.emscripten_version || '2.0.10' }}
+          ./emsdk activate ${{ github.event.inputs.emscripten_version || '2.0.10' }}
+
+      - name: Checkout OpenCV
+        uses: actions/checkout@v5
+        with:
+          repository: opencv/opencv
+          ref: ${{ github.event.inputs.opencv_version || '4.13.0' }}
+          path: opencv
+
+      - name: Build opencv.js
+        run: |
+          source emsdk/emsdk_env.sh
+          BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
+          # Use official defaults if no custom flags provided
+          # Defaults: -s WASM=1 -s SINGLE_FILE=1 -s USE_PTHREADS=0 -s EXPORTED_FUNCTIONS="['_malloc', '_free']"
+          if [ -z "$BUILD_FLAGS" ]; then
+            emcmake python3 opencv/platforms/js/build_js.py build_js
+          else
+            emcmake python3 opencv/platforms/js/build_js.py build_js --build_flags="$BUILD_FLAGS"
+          fi
+
+      - name: Verify build output
+        run: |
+          ls -lh build_js/bin/
+          if [ -f "build_js/bin/opencv.js" ]; then
+            echo "✓ opencv.js build successful"
+            echo "File size: $(du -h build_js/bin/opencv.js | cut -f1)"
+          else
+            echo "✗ opencv.js build failed"
+            exit 1
+          fi
+
+      - name: Prepare release info
+        id: release_info
+        run: |
+          OPENCV_VER="${{ github.event.inputs.opencv_version || '4.13.0' }}"
+          EMSDK_VER="${{ github.event.inputs.emscripten_version || '2.0.10' }}"
+          BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
+
+          # Use build number for uniqueness
+          TAG_NAME="opencv-js-${OPENCV_VER}-build${{ github.run_number }}"
+          RELEASE_NAME="OpenCV.js ${OPENCV_VER} (Build #${{ github.run_number }})"
+
+          # Prepare release description with all build parameters
+          if [ -z "$BUILD_FLAGS" ]; then
+            BUILD_FLAGS_DESC="Default (-s WASM=1 -s SINGLE_FILE=1 -s USE_PTHREADS=0)"
+          else
+            BUILD_FLAGS_DESC="$BUILD_FLAGS"
+          fi
+
+          cat << EOF > release_notes.md
+          ## Build Configuration
+
+          - **OpenCV Version**: \`${OPENCV_VER}\`
+          - **Emscripten Version**: \`${EMSDK_VER}\`
+          - **Build Flags**: \`${BUILD_FLAGS_DESC}\`
+          - **Build Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          - **Build Number**: #${{ github.run_number }}
+
+          ## File Information
+
+          - **File Size**: $(du -h build_js/bin/opencv.js | cut -f1)
+          - **SHA256**: \`$(sha256sum build_js/bin/opencv.js | cut -d' ' -f1)\`
+
+          ## Usage
+
+          Download \`opencv.js\` and include it in your web project:
+
+          \`\`\`html
+          <script src="opencv.js"></script>
+          \`\`\`
+
+          For more information, see [OpenCV.js Tutorials](https://docs.opencv.org/4.x/d5/d10/tutorial_js_root.html).
+          EOF
+
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "release_name=$RELEASE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.release_info.outputs.tag_name }}
+          name: ${{ steps.release_info.outputs.release_name }}
+          body_path: release_notes.md
+          files: build_js/bin/opencv.js
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
