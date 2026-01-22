@@ -11,7 +11,7 @@
     module.exports = factory();
   } else if (typeof window === 'object') {
     // Browser globals
-    root.cv = factory();
+    window.cv = factory();
   } else if (typeof importScripts === 'function') {
     // Web worker
     root.cv = factory();
