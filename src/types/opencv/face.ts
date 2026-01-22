@@ -4,10 +4,12 @@ import type {
   InputArray,
   InputOutputArray,
   Mat,
+  MatVector,
   OutputArray,
   Point2f,
   Ptr,
   Rect,
+  RectVector,
 } from "./_types";
 
 /**
@@ -41,11 +43,26 @@ export declare class Facemark extends Algorithm {
    * Detects facial landmarks on a face image.
    *
    * @param image Input image (grayscale or color)
-   * @param faces Vector of face rectangles detected by a face detector (e.g., RectVector)
-   * @param landmarks Output vector of vectors of 2D points representing facial landmarks (e.g., MatVector)
+   * @param faces Vector of face rectangles (RectVector) detected by a face detector
+   * @param landmarks Output vector of matrices (MatVector) where each Mat contains 2D points (Point2f)
+   *                  representing facial landmarks for each detected face
    * @returns true if landmarks were successfully detected, false otherwise
+   *
+   * @example
+   * ```typescript
+   * const faces = new cv.RectVector();
+   * const landmarks = new cv.MatVector();
+   * const success = facemark.fit(gray, faces, landmarks);
+   * if (success) {
+   *   for (let i = 0; i < landmarks.size(); i++) {
+   *     const points = landmarks.get(i); // Mat with Point2f data
+   *     // points.rows = number of landmarks (e.g., 68 for LBF model)
+   *     // points.cols = 2 (x, y coordinates)
+   *   }
+   * }
+   * ```
    */
-  public fit(image: InputArray, faces: any, landmarks: any): bool;
+  public fit(image: InputArray, faces: RectVector, landmarks: MatVector): bool;
 }
 
 /**

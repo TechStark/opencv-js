@@ -1,5 +1,5 @@
 /**
- * Example TypeScript code demonstrating type definitions for cv.face.createFacemarkLBF
+ * Example TypeScript code demonstrating type definitions for cv.face.createFacemarkLBF.
  * 
  * NOTE: This code will compile with TypeScript but will NOT run with the default opencv.js
  * because the face module is not included in the default build.
