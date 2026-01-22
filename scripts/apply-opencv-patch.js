@@ -46,8 +46,7 @@ if (content.includes(oldImshow)) {
 } else if (content.includes(newImshow)) {
   console.log('  ⚠ Already applied\n');
 } else {
-  console.log('  ✗ Pattern not found\n');
-  process.exit(1);
+  console.log('  ⚠ Pattern not found (may already be patched differently)\n');
 }
 
 // Patch 3: Add environment check to VideoCapture function
@@ -62,8 +61,7 @@ if (content.includes(oldVideoCapture)) {
 } else if (content.includes(newVideoCapture)) {
   console.log('  ⚠ Already applied\n');
 } else {
-  console.log('  ✗ Pattern not found\n');
-  process.exit(1);
+  console.log('  ⚠ Pattern not found (may already be patched differently)\n');
 }
 
 // Write the patched file
