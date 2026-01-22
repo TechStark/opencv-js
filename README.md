@@ -84,6 +84,8 @@ async function main() {
 main();
 ```
 
+For a complete working example, see [examples/node-image-loading.js](examples/node-image-loading.js).
+
 # Code Examples
 
 - See code examples (React, Angular, Node.js) in [opencv-js-examples](https://github.com/TechStark/opencv-js-examples)
