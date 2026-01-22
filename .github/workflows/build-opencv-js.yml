@@ -121,5 +121,6 @@ jobs:
           files: build_js/bin/opencv.js
           draft: false
           prerelease: false
+          make_latest: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
