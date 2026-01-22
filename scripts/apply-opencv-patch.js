@@ -13,7 +13,24 @@ const path = require('path');
 
 const OPENCV_PATH = path.join(__dirname, '..', 'dist', 'opencv.js');
 
+// Error messages for browser-only functions
+const IMSHOW_ERROR_MSG = 
+  'cv.imshow() is only available in browser environments. ' +
+  'It requires DOM API (canvas element) which is not available in Node.js. ' +
+  'For Node.js, please use alternative methods like cv.imwrite() to save images to files.';
+
+const VIDEO_CAPTURE_ERROR_MSG = 
+  'cv.VideoCapture() is only available in browser environments. ' +
+  'It requires DOM API (video element) which is not available in Node.js.';
+
 console.log('Applying patches to opencv.js...\n');
+
+// Check if opencv.js exists
+if (!fs.existsSync(OPENCV_PATH)) {
+  console.error(`Error: opencv.js not found at ${OPENCV_PATH}`);
+  console.error('Please ensure you are running this script from the project root.');
+  process.exit(1);
+}
 
 // Read the opencv.js file
 let content = fs.readFileSync(OPENCV_PATH, 'utf-8');
@@ -36,8 +53,14 @@ if (content.includes(oldModuleDecl)) {
 
 // Patch 2: Add environment check to imshow function
 console.log('Patch 2: imshow environment check');
-const oldImshow = 'Module["imshow"]=function(canvasSource,mat){var canvas=null;if(typeof canvasSource==="string"){canvas=document.getElementById(canvasSource)}';
-const newImshow = 'Module["imshow"]=function(canvasSource,mat){if(typeof document==="undefined"){throw new Error("cv.imshow() is only available in browser environments. It requires DOM API (canvas element) which is not available in Node.js. For Node.js, please use alternative methods like cv.imwrite() to save images to files.")}var canvas=null;if(typeof canvasSource==="string"){canvas=document.getElementById(canvasSource)}';
+const oldImshow = 
+  'Module["imshow"]=function(canvasSource,mat){var canvas=null;' +
+  'if(typeof canvasSource==="string"){canvas=document.getElementById(canvasSource)}';
+
+const newImshow = 
+  'Module["imshow"]=function(canvasSource,mat){' +
+  'if(typeof document==="undefined"){throw new Error("' + IMSHOW_ERROR_MSG + '")}' +
+  'var canvas=null;if(typeof canvasSource==="string"){canvas=document.getElementById(canvasSource)}';
 
 if (content.includes(oldImshow)) {
   content = content.replace(oldImshow, newImshow);
@@ -51,8 +74,14 @@ if (content.includes(oldImshow)) {
 
 // Patch 3: Add environment check to VideoCapture function
 console.log('Patch 3: VideoCapture environment check');
-const oldVideoCapture = 'Module["VideoCapture"]=function(videoSource){var video=null;if(typeof videoSource==="string"){video=document.getElementById(videoSource)}';
-const newVideoCapture = 'Module["VideoCapture"]=function(videoSource){if(typeof document==="undefined"){throw new Error("cv.VideoCapture() is only available in browser environments. It requires DOM API (video element) which is not available in Node.js.")}var video=null;if(typeof videoSource==="string"){video=document.getElementById(videoSource)}';
+const oldVideoCapture = 
+  'Module["VideoCapture"]=function(videoSource){var video=null;' +
+  'if(typeof videoSource==="string"){video=document.getElementById(videoSource)}';
+
+const newVideoCapture = 
+  'Module["VideoCapture"]=function(videoSource){' +
+  'if(typeof document==="undefined"){throw new Error("' + VIDEO_CAPTURE_ERROR_MSG + '")}' +
+  'var video=null;if(typeof videoSource==="string"){video=document.getElementById(videoSource)}';
 
 if (content.includes(oldVideoCapture)) {
   content = content.replace(oldVideoCapture, newVideoCapture);
