@@ -1,5 +1,11 @@
 // Scalar, Point, Rect, etc are defined by opencv.js (helpers.js) and we need to declare them manually:
 
+import { Algorithm } from "./Algorithm";
+import { RotatedRect } from "./RotatedRect";
+import type { NormTypes } from './core_array'
+import { Mat } from './Mat'
+import type { LineTypes } from './imgproc_draw'
+
 export declare class Range {
   public start: number;
   public end: number;
@@ -91,9 +97,6 @@ export declare function FS_createDataFile(
   canWrite: boolean,
   canOwn: boolean,
 ): any;
-
-import { Algorithm, type LineTypes, Mat, type NormTypes, RotatedRect } from ".";
-import "../_cv";
 
 /**
  * Base class for Contrast Limited Adaptive Histogram Equalization.

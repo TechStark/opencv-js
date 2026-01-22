@@ -567,8 +567,8 @@ export declare const WARP_POLAR_LINEAR: WarpPolarMode; // initializer: = 0
 
 export declare const WARP_POLAR_LOG: WarpPolarMode; // initializer: = 256
 
-export type InterpolationFlags = any;
+export type InterpolationFlags = number;
 
-export type InterpolationMasks = any;
+export type InterpolationMasks = number;
 
-export type WarpPolarMode = any;
+export type WarpPolarMode = number;

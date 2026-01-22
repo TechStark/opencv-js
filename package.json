@@ -3,7 +3,7 @@
   "version": "4.12.0-release.1",
   "description": "OpenCV JavaScript version for node.js or browser",
   "main": "dist/opencv.js",
-  "types": "dist/src/index.d.ts",
+  "types": "src/index.d.ts",
   "files": [
     "dist/",
     "src/"
