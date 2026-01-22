@@ -89,6 +89,19 @@ module.exports = {
 
 The TypeScript type declarations may not be up to date with the latest OpenCV.js. Refer to [cvKeys.json](doc/cvKeys.json) to check the available methods and properties at runtime.
 
+## OpenCV Contrib Modules
+
+The default opencv.js build includes core OpenCV modules but **does not include opencv_contrib modules** (like the `face` module). 
+
+If you need opencv_contrib modules such as:
+- `cv.face.createFacemarkLBF()` - Facial landmark detection
+- Other face analysis features
+- Extended features from opencv_contrib
+
+You will need to build a custom opencv.js from source. See the [Face Module Guide](doc/FACE_MODULE.md) for detailed instructions.
+
+**Available modules in default build:** calib3d, core, dnn, features2d, flann, imgproc, js, objdetect, photo, video
+
 # Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=techstark/opencv-js&type=Date)](https://star-history.com/#techstark/opencv-js&Date)
