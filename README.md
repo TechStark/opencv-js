@@ -89,6 +89,35 @@ module.exports = {
 
 The TypeScript type declarations may not be up to date with the latest OpenCV.js. Refer to [cvKeys.json](doc/cvKeys.json) to check the available methods and properties at runtime.
 
+# Browser vs Node.js Compatibility
+
+This package works in both browser and Node.js environments. However, some functions are **browser-only** and will throw clear errors when used in Node.js:
+
+- **`cv.imshow()`** - Requires HTML Canvas element (browser only)
+  - For Node.js, use alternative methods like `cv.imwrite()` to save images to files
+- **`cv.VideoCapture()`** - Requires HTML Video element (browser only)
+
+All other OpenCV functionality (Mat operations, image processing, computer vision algorithms, etc.) works in both environments.
+
+### Example Node.js Usage
+
+```js
+import cvModule from "@techstark/opencv-js";
+
+async function main() {
+  const cv = await cvModule;
+  
+  // ✓ Works in Node.js
+  const mat = new cv.Mat(100, 100, cv.CV_8UC3);
+  cv.GaussianBlur(mat, mat, new cv.Size(5, 5), 0);
+  
+  // ✗ Throws error in Node.js (browser only)
+  // cv.imshow("canvas", mat); // Error: cv.imshow() is only available in browser environments
+  
+  mat.delete();
+}
+```
+
 # Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=techstark/opencv-js&type=Date)](https://star-history.com/#techstark/opencv-js&Date)
