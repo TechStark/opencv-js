@@ -106,14 +106,6 @@ jobs:
           - **File Size**: $(du -h build_js/bin/opencv.js | cut -f1)
           - **SHA256**: \`$(sha256sum build_js/bin/opencv.js | cut -d' ' -f1)\`
 
-          ## Usage
-
-          Download \`opencv.js\` and include it in your web project:
-
-          \`\`\`html
-          <script src="opencv.js"></script>
-          \`\`\`
-
           For more information, see [OpenCV.js Tutorials](https://docs.opencv.org/4.x/d5/d10/tutorial_js_root.html).
           EOF
 
