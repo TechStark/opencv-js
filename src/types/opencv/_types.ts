@@ -45,6 +45,7 @@ export * from "./RotatedRect";
 export * from "./softdouble";
 export * from "./softfloat";
 export * from "./video_track";
+export * from "./text";
 export * from "./_hacks";
 export * from "./Tracker";
 export * from "./TrackerMIL";
