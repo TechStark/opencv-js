@@ -4,6 +4,7 @@ import type {
   InputArray,
   InputArrayOfArrays,
   int,
+  IntVector,
   Mat,
   OutputArray,
   Ptr,
@@ -186,9 +187,12 @@ export declare class Stitcher {
   public composePanorama(images: InputArrayOfArrays, pano: OutputArray): int;
 
   /**
-   * @returns Estimated transformation for all input images.
+   * Gets the connected components of the stitched images.
+   *
+   * @returns Array containing the indices of images in each connected component.
+   * Images that could not be stitched together will be in separate components.
    */
-  public component(): any;
+  public component(): IntVector;
 
   /**
    * @returns Indices (0-based) of ROI for each image.
