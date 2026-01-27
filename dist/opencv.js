@@ -11,7 +11,7 @@
     module.exports = factory();
   } else if (typeof window === 'object') {
     // Browser globals
-    window.cv = factory();
+    root.cv = factory();
   } else if (typeof importScripts === 'function') {
     // Web worker
     root.cv = factory();
@@ -19,7 +19,7 @@
     // Other shells, e.g. d8
     root.cv = factory();
   }
-}(this, function () {
+}(globalThis, function () {
   
 var cv = (function() {
   var _scriptDir = typeof document !== 'undefined' && document.currentScript ? document.currentScript.src : undefined;
