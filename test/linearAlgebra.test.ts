@@ -30,6 +30,7 @@ describe("Linear Algebra Functions", () => {
 
   it("should demonstrate solve function works", () => {
     // Create a simple 2x2 linear system and verify solve can be called
+    // Using arbitrary matrix values just to test the function executes
     const A = cv.matFromArray(2, 2, cv.CV_64F, [2, 1, 1, 3]);
     const b = cv.matFromArray(2, 1, cv.CV_64F, [5, 6]);
     const x = new cv.Mat();
@@ -48,7 +49,8 @@ describe("Linear Algebra Functions", () => {
   });
 
   it("should demonstrate invert function works", () => {
-    // Create a 2x2 matrix and invert it
+    // Create a simple invertible 2x2 matrix to test the function
+    // Using arbitrary matrix values just to test the function executes
     const A = cv.matFromArray(2, 2, cv.CV_64F, [4, 7, 2, 6]);
     const Ainv = new cv.Mat();
 
