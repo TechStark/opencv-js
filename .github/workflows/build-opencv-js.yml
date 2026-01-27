@@ -76,26 +76,26 @@ jobs:
           BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
           ENABLE_CONTRIB="${{ github.event.inputs.enable_contrib }}"
           
-          # Build command base
-          BUILD_CMD="emcmake python3 opencv/platforms/js/build_js.py build_js"
+          # Prepare build command arguments
+          BUILD_ARGS=("build_js")
           
           # Add extra modules path if contrib is enabled
           if [ "$ENABLE_CONTRIB" = "true" ]; then
-            BUILD_CMD="$BUILD_CMD --extra_modules=$(pwd)/opencv_contrib/modules"
+            BUILD_ARGS+=("--extra_modules=$(pwd)/opencv_contrib/modules")
             # Copy text module config to opencv platforms/js directory
             cp opencv-js-repo/opencv_js_text.config.py opencv/platforms/js/
-            BUILD_CMD="$BUILD_CMD --config=opencv/platforms/js/opencv_js_text.config.py"
+            BUILD_ARGS+=("--config=opencv/platforms/js/opencv_js_text.config.py")
             # Enable text module build
-            BUILD_CMD="$BUILD_CMD --cmake_option=-DBUILD_opencv_text=ON"
+            BUILD_ARGS+=("--cmake_option=-DBUILD_opencv_text=ON")
           fi
           
           # Add custom build flags if provided
           if [ -n "$BUILD_FLAGS" ]; then
-            BUILD_CMD="$BUILD_CMD --build_flags=\"$BUILD_FLAGS\""
+            BUILD_ARGS+=("--build_flags=$BUILD_FLAGS")
           fi
           
-          echo "Executing: $BUILD_CMD"
-          eval $BUILD_CMD
+          echo "Building with arguments: ${BUILD_ARGS[@]}"
+          emcmake python3 opencv/platforms/js/build_js.py "${BUILD_ARGS[@]}"
 
       - name: Verify build output
         run: |
