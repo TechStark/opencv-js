@@ -788,6 +788,12 @@ export declare class Mat extends EmscriptenEmbindInstance {
   public clone(): Mat;
 
   /**
+   *   Creates a deep copy of the Mat with independent data buffer.
+   *   This method ensures the copied Mat has its own data that is independent of the original.
+   */
+  public mat_clone(): Mat;
+
+  /**
    *   The method makes a new header for the specified matrix column and returns it. This is an O(1)
    * operation, regardless of the matrix size. The underlying data of the new matrix is shared with the
    * original matrix. See also the [Mat::row] description.
