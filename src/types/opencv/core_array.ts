@@ -2655,28 +2655,6 @@ export declare function subtract(
 export declare function sum(src: InputArray): Scalar;
 
 /**
- * wrap [SVD::backSubst]
- */
-export declare function SVBackSubst(
-  w: InputArray,
-  u: InputArray,
-  vt: InputArray,
-  rhs: InputArray,
-  dst: OutputArray,
-): void;
-
-/**
- * wrap [SVD::compute]
- */
-export declare function SVDecomp(
-  src: InputArray,
-  w: OutputArray,
-  u: OutputArray,
-  vt: OutputArray,
-  flags?: int,
-): void;
-
-/**
  * The function [cv::theRNG] returns the default random number generator. For each thread, there is a
  * separate random number generator, so you can use the function safely in multi-thread environments.
  * If you just need to get a single random number using this generator or initialize an array, you can
