@@ -4,6 +4,9 @@ beforeAll(async () => {
   await setupOpenCv();
 });
 
+// Helper function to check if Stitcher is available
+const isStitcherAvailable = () => "Stitcher" in cv && typeof cv.Stitcher !== "undefined";
+
 describe("Stitcher", () => {
   it("should pass TypeScript type validations", () => {
     // This test ensures that the Stitcher type definitions compile correctly
@@ -12,10 +15,7 @@ describe("Stitcher", () => {
   });
 
   it("should check if Stitcher is available in current build", () => {
-    // Check if Stitcher class exists in the cv object
-    const isStitcherAvailable = "Stitcher" in cv && typeof cv.Stitcher !== "undefined";
-    
-    if (!isStitcherAvailable) {
+    if (!isStitcherAvailable()) {
       console.log(
         "⚠️  Stitcher class is not available in the current OpenCV.js build.\n" +
         "   The stitching module is disabled by default.\n" +
@@ -25,12 +25,11 @@ describe("Stitcher", () => {
     }
 
     // This test doesn't fail - it's informational
-    expect(typeof isStitcherAvailable).toBe("boolean");
+    expect(typeof isStitcherAvailable()).toBe("boolean");
   });
 
   // Conditional tests that only run if Stitcher is available
   describe("when Stitcher is available", () => {
-    const isStitcherAvailable = () => "Stitcher" in cv && typeof cv.Stitcher !== "undefined";
 
     it("should be available as a class", () => {
       if (!isStitcherAvailable()) {

@@ -33,6 +33,7 @@ export declare class Stitcher {
    * set each of the stitcher properties to optimum values.
    * Stitcher.PANORAMA mode expects images under horizontal perspective.
    * Stitcher.SCANS mode is designed for scanned images.
+   * If not specified, defaults to Stitcher.PANORAMA mode.
    *
    * @returns An instance of Stitcher class.
    */
