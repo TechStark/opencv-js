@@ -22,6 +22,11 @@ on:
         required: false
         default: ""
         type: string
+      enable_contrib:
+        description: "Enable opencv_contrib modules (includes text module with SWT)"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build-opencv:
@@ -51,17 +56,46 @@ jobs:
           ref: ${{ github.event.inputs.opencv_version || '4.13.0' }}
           path: opencv
 
+      - name: Checkout opencv_contrib (if enabled)
+        if: ${{ github.event.inputs.enable_contrib == 'true' }}
+        uses: actions/checkout@v5
+        with:
+          repository: opencv/opencv_contrib
+          ref: ${{ github.event.inputs.opencv_version || '4.13.0' }}
+          path: opencv_contrib
+
+      - name: Checkout this repository for config files
+        if: ${{ github.event.inputs.enable_contrib == 'true' }}
+        uses: actions/checkout@v5
+        with:
+          path: opencv-js-repo
+
       - name: Build opencv.js
         run: |
           source emsdk/emsdk_env.sh
           BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
-          # Use official defaults if no custom flags provided
-          # Defaults: -s WASM=1 -s SINGLE_FILE=1 -s USE_PTHREADS=0 -s EXPORTED_FUNCTIONS="['_malloc', '_free']"
-          if [ -z "$BUILD_FLAGS" ]; then
-            emcmake python3 opencv/platforms/js/build_js.py build_js
-          else
-            emcmake python3 opencv/platforms/js/build_js.py build_js --build_flags="$BUILD_FLAGS"
+          ENABLE_CONTRIB="${{ github.event.inputs.enable_contrib }}"
+          
+          # Build command base
+          BUILD_CMD="emcmake python3 opencv/platforms/js/build_js.py build_js"
+          
+          # Add extra modules path if contrib is enabled
+          if [ "$ENABLE_CONTRIB" = "true" ]; then
+            BUILD_CMD="$BUILD_CMD --extra_modules=$(pwd)/opencv_contrib/modules"
+            # Copy text module config to opencv platforms/js directory
+            cp opencv-js-repo/opencv_js_text.config.py opencv/platforms/js/
+            BUILD_CMD="$BUILD_CMD --config=opencv/platforms/js/opencv_js_text.config.py"
+            # Enable text module build
+            BUILD_CMD="$BUILD_CMD --cmake_option=-DBUILD_opencv_text=ON"
           fi
+          
+          # Add custom build flags if provided
+          if [ -n "$BUILD_FLAGS" ]; then
+            BUILD_CMD="$BUILD_CMD --build_flags=\"$BUILD_FLAGS\""
+          fi
+          
+          echo "Executing: $BUILD_CMD"
+          eval $BUILD_CMD
 
       - name: Verify build output
         run: |
@@ -80,10 +114,16 @@ jobs:
           OPENCV_VER="${{ github.event.inputs.opencv_version || '4.13.0' }}"
           EMSDK_VER="${{ github.event.inputs.emscripten_version || '2.0.10' }}"
           BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
+          ENABLE_CONTRIB="${{ github.event.inputs.enable_contrib }}"
 
           # Use build number for uniqueness
-          TAG_NAME="opencv-js-${OPENCV_VER}-build${{ github.run_number }}"
-          RELEASE_NAME="OpenCV.js ${OPENCV_VER} (Build #${{ github.run_number }})"
+          if [ "$ENABLE_CONTRIB" = "true" ]; then
+            TAG_NAME="opencv-js-${OPENCV_VER}-contrib-build${{ github.run_number }}"
+            RELEASE_NAME="OpenCV.js ${OPENCV_VER} with contrib (Build #${{ github.run_number }})"
+          else
+            TAG_NAME="opencv-js-${OPENCV_VER}-build${{ github.run_number }}"
+            RELEASE_NAME="OpenCV.js ${OPENCV_VER} (Build #${{ github.run_number }})"
+          fi
 
           # Prepare release description with all build parameters
           if [ -z "$BUILD_FLAGS" ]; then
@@ -98,6 +138,7 @@ jobs:
           - **OpenCV Version**: \`${OPENCV_VER}\`
           - **Emscripten Version**: \`${EMSDK_VER}\`
           - **Build Flags**: \`${BUILD_FLAGS_DESC}\`
+          - **Contrib Modules**: \`${ENABLE_CONTRIB}\`
           - **Build Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
           - **Build Number**: #${{ github.run_number }}
 
@@ -106,6 +147,19 @@ jobs:
           - **File Size**: $(du -h build_js/bin/opencv.js | cut -f1)
           - **SHA256**: \`$(sha256sum build_js/bin/opencv.js | cut -d' ' -f1)\`
 
+          EOF
+          
+          if [ "$ENABLE_CONTRIB" = "true" ]; then
+            cat << EOF >> release_notes.md
+          ## Included Modules
+
+          This build includes opencv_contrib modules, specifically:
+          - **text module**: Includes SWT (Stroke Width Transform) text detection and other text processing functions
+
+          EOF
+          fi
+          
+          cat << EOF >> release_notes.md
           For more information, see [OpenCV.js Tutorials](https://docs.opencv.org/4.x/d5/d10/tutorial_js_root.html).
           EOF
 
