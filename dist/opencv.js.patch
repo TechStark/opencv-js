@@ -1,14 +1,35 @@
-diff --git a/dist/opencv.js b/dist/opencv.js
-index af4111b..3ba8a69 100644
---- a/dist/opencv.js
-+++ b/dist/opencv.js
-@@ -41,7 +41,7 @@ else if (typeof define === 'function' && define['amd'])
-   define([], () => cv);
- 
-   if (typeof Module === 'undefined')
--    Module = {};
-+    var Module = {};
-   return cv(Module);
- }));
-         
-\ No newline at end of file
+This patch file documents the changes made to opencv.js to fix Node.js/tsx compatibility issues.
+
+PATCH 1: Fix Module variable declaration
+----------------------------------------
+Location: Line ~41-44
+Original:
+  if (typeof Module === 'undefined')
+    Module = {};
+
+Modified:
+  if (typeof Module === 'undefined')
+    var Module = {};
+
+PATCH 2: Add environment check to imshow function
+-------------------------------------------------
+Location: Line ~30 (within Module["imshow"] function)
+Original:
+Module["imshow"]=function(canvasSource,mat){var canvas=null;if(typeof canvasSource==="string"){canvas=document.getElementById(canvasSource)}
+
+Modified:
+Module["imshow"]=function(canvasSource,mat){if(typeof document==="undefined"){throw new Error("cv.imshow() is only available in browser environments. It requires DOM API (canvas element) which is not available in Node.js. For Node.js, please use alternative methods like cv.imwrite() to save images to files.")}var canvas=null;if(typeof canvasSource==="string"){canvas=document.getElementById(canvasSource)}
+
+PATCH 3: Add environment check to VideoCapture constructor
+----------------------------------------------------------
+Location: Line ~30 (within Module["VideoCapture"] function)
+Original:
+Module["VideoCapture"]=function(videoSource){var video=null;if(typeof videoSource==="string"){video=document.getElementById(videoSource)}
+
+Modified:
+Module["VideoCapture"]=function(videoSource){if(typeof document==="undefined"){throw new Error("cv.VideoCapture() is only available in browser environments. It requires DOM API (video element) which is not available in Node.js.")}var video=null;if(typeof videoSource==="string"){video=document.getElementById(videoSource)}
+
+To apply these patches, run:
+  node scripts/apply-opencv-patch.js
+
+or manually edit dist/opencv.js with the changes above.
