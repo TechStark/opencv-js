@@ -5,7 +5,7 @@ import { setupOpenCv, translateException } from "./cv";
 beforeAll(setupOpenCv);
 
 describe("Mat", () => {
-  it("shoud pass TS type validations", async () => {
+  it("should pass TS type validations", async () => {
     try {
       // load local image file with jimp. It supports jpg, png, bmp, tiff and gif:
       const jimpSrc = await Jimp.read(path.resolve(__dirname, "Lenna.png"));
