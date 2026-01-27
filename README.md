@@ -84,7 +84,7 @@ async function main() {
 main();
 ```
 
-For a complete working example, see [examples/node-image-loading.js](examples/node-image-loading.js).
+For a complete working example, see the unit test [test/imread-nodejs.test.ts](test/imread-nodejs.test.ts).
 
 # Code Examples
 
