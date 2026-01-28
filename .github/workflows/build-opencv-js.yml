@@ -112,7 +112,6 @@ jobs:
           - **Build Flags**: \`${BUILD_FLAGS_DESC}\`
           - **CMake Options**: \`${CMAKE_OPTIONS_DESC}\`
           - **Build Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
-          - **Build Number**: #${{ github.run_number }}
 
           ## File Information
 
@@ -134,6 +133,6 @@ jobs:
           files: build_js/bin/opencv.js
           draft: false
           prerelease: false
-          make_latest: false
+          make_latest: "false"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
