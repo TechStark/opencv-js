@@ -15,12 +15,17 @@ on:
       emscripten_version:
         description: "Emscripten version to use"
         required: false
-        default: "2.0.10"
+        default: "4.0.20"
         type: string
       build_flags:
         description: "Additional build flags (leave empty for defaults)"
         required: false
         default: ""
+        type: string
+      cmake_options:
+        description: "Additional CMake options (e.g., -DCMAKE_CXX_STANDARD=17 for Emscripten 4.0.20+)"
+        required: false
+        default: "-DCMAKE_CXX_STANDARD=17"
         type: string
 
 jobs:
@@ -41,8 +46,8 @@ jobs:
       - name: Install and activate Emscripten
         run: |
           cd emsdk
-          ./emsdk install ${{ github.event.inputs.emscripten_version || '2.0.10' }}
-          ./emsdk activate ${{ github.event.inputs.emscripten_version || '2.0.10' }}
+          ./emsdk install ${{ github.event.inputs.emscripten_version || '4.0.20' }}
+          ./emsdk activate ${{ github.event.inputs.emscripten_version || '4.0.20' }}
 
       - name: Checkout OpenCV
         uses: actions/checkout@v5
@@ -55,13 +60,18 @@ jobs:
         run: |
           source emsdk/emsdk_env.sh
           BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
+          CMAKE_OPTIONS="${{ github.event.inputs.cmake_options || '-DCMAKE_CXX_STANDARD=17' }}"
           # Use official defaults if no custom flags provided
           # Defaults: -s WASM=1 -s SINGLE_FILE=1 -s USE_PTHREADS=0 -s EXPORTED_FUNCTIONS="['_malloc', '_free']"
-          if [ -z "$BUILD_FLAGS" ]; then
-            emcmake python3 opencv/platforms/js/build_js.py build_js
-          else
-            emcmake python3 opencv/platforms/js/build_js.py build_js --build_flags="$BUILD_FLAGS"
+          # Note: Emscripten 4.0.20+ requires C++17 for Embind
+          BUILD_CMD="emcmake python3 opencv/platforms/js/build_js.py build_js"
+          if [ -n "$CMAKE_OPTIONS" ]; then
+            BUILD_CMD="$BUILD_CMD --cmake_option=\"$CMAKE_OPTIONS\""
           fi
+          if [ -n "$BUILD_FLAGS" ]; then
+            BUILD_CMD="$BUILD_CMD --build_flags=\"$BUILD_FLAGS\""
+          fi
+          eval $BUILD_CMD
 
       - name: Verify build output
         run: |
@@ -78,8 +88,9 @@ jobs:
         id: release_info
         run: |
           OPENCV_VER="${{ github.event.inputs.opencv_version || '4.13.0' }}"
-          EMSDK_VER="${{ github.event.inputs.emscripten_version || '2.0.10' }}"
+          EMSDK_VER="${{ github.event.inputs.emscripten_version || '4.0.20' }}"
           BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
+          CMAKE_OPTIONS="${{ github.event.inputs.cmake_options || '-DCMAKE_CXX_STANDARD=17' }}"
 
           # Use build number for uniqueness
           TAG_NAME="opencv-js-${OPENCV_VER}-build${{ github.run_number }}"
@@ -91,6 +102,7 @@ jobs:
           else
             BUILD_FLAGS_DESC="$BUILD_FLAGS"
           fi
+          CMAKE_OPTIONS_DESC="${CMAKE_OPTIONS:-None}"
 
           cat << EOF > release_notes.md
           ## Build Configuration
@@ -98,6 +110,7 @@ jobs:
           - **OpenCV Version**: \`${OPENCV_VER}\`
           - **Emscripten Version**: \`${EMSDK_VER}\`
           - **Build Flags**: \`${BUILD_FLAGS_DESC}\`
+          - **CMake Options**: \`${CMAKE_OPTIONS_DESC}\`
           - **Build Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
           - **Build Number**: #${{ github.run_number }}
 
