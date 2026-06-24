@@ -23,6 +23,8 @@ jobs:
   publish-npm:
     # needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -30,9 +32,7 @@ jobs:
           node-version: "24.x"
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm publish --access=public --tag latest
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: npm publish --access=public --tag latest --provenance
 
   # publish-gpr:
   #   needs: build
