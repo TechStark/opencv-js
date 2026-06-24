@@ -12,16 +12,16 @@
     "build": "tsc",
     "prepack": "npm run build",
     "format": "prettier --write \"src/**/*.ts\"",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:compat": "node test/compat/run-all.mjs"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "jest": "^29.7.0",
-    "jimp": "^1.6.0",
-    "prettier": "^3.5.3",
-    "ts-jest": "^29.3.4",
-    "typescript": "^5.8.3"
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.0",
+    "jimp": "^1.6.1",
+    "prettier": "^3.8.4",
+    "ts-jest": "^29.4.11",
+    "typescript": "^6.0.3"
   },
   "repository": {
     "type": "git",
