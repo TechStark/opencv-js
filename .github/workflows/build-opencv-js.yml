@@ -132,7 +132,7 @@ jobs:
           body_path: release_notes.md
           files: build_js/bin/opencv.js
           draft: false
-          prerelease: false
+          prerelease: true
           make_latest: "false"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
