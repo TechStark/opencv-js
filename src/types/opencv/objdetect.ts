@@ -107,3 +107,4 @@ export {
   QRCodeDetectorAruco,
   QRCodeDetectorAruco_Params,
 } from "./QRCodeDetectorAruco";
+export { FaceDetectorYN } from "./FaceDetectorYN";
