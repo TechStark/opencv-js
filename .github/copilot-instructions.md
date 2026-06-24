@@ -8,7 +8,7 @@ OpenCV-JS is a TypeScript NPM package that provides OpenCV.js (JavaScript/WebAss
 
 **Repository:** https://github.com/TechStark/opencv-js  
 **NPM Package:** [@techstark/opencv-js](https://www.npmjs.com/package/@techstark/opencv-js)  
-**Version:** 4.12.0-release.1
+**Version:** 5.0.0-release.1
 
 ## Technology Stack
 
@@ -17,7 +17,7 @@ OpenCV-JS is a TypeScript NPM package that provides OpenCV.js (JavaScript/WebAss
 - **Build Tool:** TypeScript Compiler (tsc)
 - **Testing:** Jest with ts-jest
 - **Package Manager:** npm
-- **OpenCV Version:** 4.12.0 (WebAssembly/JavaScript build)
+- **OpenCV Version:** 5.0.0 (WebAssembly/JavaScript build)
 - **Key Dependencies:** Jimp (for image loading in tests)
 
 ## Table of Contents
@@ -217,7 +217,7 @@ After making changes, ALWAYS test these scenarios:
 
 ### WASM Binary Safety
 - The `dist/opencv.js` file is a pre-built WebAssembly binary from OpenCV.org
-- Verify the source when updating: https://docs.opencv.org/4.12.0/opencv.js
+- Verify the source when updating: https://docs.opencv.org/5.0.0/opencv.js
 - Do NOT accept modified opencv.js files from untrusted sources
 
 ### Memory Safety
@@ -233,10 +233,10 @@ After making changes, ALWAYS test these scenarios:
 ## External Documentation
 
 ### OpenCV Resources
-- [OpenCV.js Documentation](https://docs.opencv.org/4.12.0/d5/d10/tutorial_js_root.html)
-- [OpenCV.js Tutorials](https://docs.opencv.org/4.12.0/#:~:text=OpenCV%2DPython%20Tutorials-,OpenCV.js%20Tutorials,-Tutorials%20for%20contrib)
-- [OpenCV.js API Reference](https://docs.opencv.org/4.12.0/d0/de1/group__js.html)
-- [OpenCV Build Information](https://docs.opencv.org/4.12.0/opencv.js)
+- [OpenCV.js Documentation](https://docs.opencv.org/5.0.0/d5/d10/tutorial_js_root.html)
+- [OpenCV.js Tutorials](https://docs.opencv.org/5.0.0/#:~:text=OpenCV%2DPython%20Tutorials-,OpenCV.js%20Tutorials,-Tutorials%20for%20contrib)
+- [OpenCV.js API Reference](https://docs.opencv.org/5.0.0/d0/de1/group__js.html)
+- [OpenCV Build Information](https://docs.opencv.org/5.0.0/opencv.js)
 
 ### Package Resources
 - [NPM Package Page](https://www.npmjs.com/package/@techstark/opencv-js)
