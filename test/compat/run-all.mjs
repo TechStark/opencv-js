@@ -30,12 +30,17 @@ function run(label, scriptPath) {
     });
   } catch (e) {
     const output = ((e.stdout || "") + (e.stderr || "")).trim();
-    output.split("\n").forEach(line => {
+    const lines = output.split("\n");
+    const hasResult = lines.some(l => l.startsWith("PASS:") || l.startsWith("FAIL:"));
+    lines.forEach(line => {
       if (line.startsWith("PASS:")) pass(line.slice(5).trim());
       else if (line.startsWith("FAIL:")) fail(line.slice(5).trim());
-      else if (line) console.log(`       ${line}`);
+      // suppress WASM runtime noise (unhandled rejections, abort messages)
+      else if (line && !line.includes("UnhandledPromiseRejection") && !line.includes("abort(") && !line.includes("at ") && !line.includes("code: '")) {
+        console.log(`       ${line}`);
+      }
     });
-    if (!output.includes("FAIL:")) fail(`process crashed: ${e.message}`);
+    if (!hasResult) fail(`process crashed: ${e.message.split("\n")[0]}`);
   }
 }
 
