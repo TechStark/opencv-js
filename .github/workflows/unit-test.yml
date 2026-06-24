@@ -27,3 +27,6 @@ jobs:
 
       - name: Run test
         run: npm test
+
+      - name: Run compat checks
+        run: npm run test:compat
