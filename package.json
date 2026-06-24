@@ -12,7 +12,8 @@
     "build": "tsc",
     "prepack": "npm run build",
     "format": "prettier --write \"src/**/*.ts\"",
-    "test": "jest"
+    "test": "jest",
+    "test:compat": "node test/compat/run-all.mjs"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
