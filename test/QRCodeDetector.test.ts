@@ -251,3 +251,50 @@ describe("QRCodeDetectorAruco_Params", () => {
     expect(() => params.delete()).not.toThrow();
   });
 });
+
+describe("QRCodeEncoder", () => {
+  it("should have QRCodeEncoder constants available", () => {
+    // Verify correction level constants are available
+    expect(cv.QRCodeEncoder_CORRECT_LEVEL_L).toBeDefined();
+    expect(cv.QRCodeEncoder_CORRECT_LEVEL_M).toBeDefined();
+    expect(cv.QRCodeEncoder_CORRECT_LEVEL_Q).toBeDefined();
+    expect(cv.QRCodeEncoder_CORRECT_LEVEL_H).toBeDefined();
+    
+    // Verify mode constants are available
+    expect(cv.QRCodeEncoder_MODE_NUMERIC).toBeDefined();
+    expect(cv.QRCodeEncoder_MODE_ALPHANUMERIC).toBeDefined();
+    expect(cv.QRCodeEncoder_MODE_BYTE).toBeDefined();
+    expect(cv.QRCodeEncoder_MODE_KANJI).toBeDefined();
+    expect(cv.QRCodeEncoder_MODE_ECI).toBeDefined();
+    expect(cv.QRCodeEncoder_MODE_STRUCTURED_APPEND).toBeDefined();
+    expect(cv.QRCodeEncoder_MODE_AUTO).toBeDefined();
+    
+    // Verify encoding constant is available
+    expect(cv.QRCodeEncoder_ECI_UTF8).toBeDefined();
+  });
+  
+  it("should have QRCodeEncoder enums available", () => {
+    // Verify CorrectionLevel enum exists
+    expect(cv.QRCodeEncoder_CorrectionLevel).toBeDefined();
+    
+    // Verify EncodeMode enum exists
+    expect(cv.QRCodeEncoder_EncodeMode).toBeDefined();
+    
+    // Verify ECIEncodings enum exists
+    expect(cv.QRCodeEncoder_ECIEncodings).toBeDefined();
+  });
+  
+  it("QRCodeEncoder class is documented as not available in current build", () => {
+    // This test documents the known limitation that QRCodeEncoder class
+    // is not available in the current OpenCV.js build, even though
+    // the constants and enums are available.
+    //
+    // The TypeScript definitions are provided for future compatibility
+    // and to avoid compilation errors when using the constants.
+    //
+    // See: https://github.com/TechStark/opencv-js/issues/58
+    
+    // This will fail if the class becomes available in a future build
+    expect(cv.QRCodeEncoder).toBeUndefined();
+  });
+});

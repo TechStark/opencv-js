@@ -107,3 +107,106 @@ export {
   QRCodeDetectorAruco,
   QRCodeDetectorAruco_Params,
 } from "./QRCodeDetectorAruco";
+
+/**
+ * QRCodeEncoder class for generating QR codes.
+ * 
+ * Note: This class is not currently available in the OpenCV.js build,
+ * although the constants and enums are available. This is a type definition
+ * for compatibility and future support.
+ * 
+ * @see https://github.com/TechStark/opencv-js/issues/58
+ */
+export declare class QRCodeEncoder {
+  /**
+   * Creates a new QRCodeEncoder instance.
+   * @param parameters Optional parameters for QR code generation
+   */
+  constructor(parameters?: QRCodeEncoder_Params);
+
+  /**
+   * Encode text data into a QR code.
+   * @param encoded_info The text data to encode
+   * @param qrcode Output matrix containing the generated QR code
+   */
+  encode(encoded_info: string, qrcode: any): void;
+
+  /**
+   * Encode text data into a QR code with specified parameters.
+   * @param encoded_info The text data to encode  
+   * @param qrcode Output matrix containing the generated QR code
+   * @param params Parameters for QR code generation
+   */
+  encodeStructuredAppend(encoded_info: string, qrcode: any, params: QRCodeEncoder_Params): void;
+}
+
+/**
+ * Parameters for QRCodeEncoder.
+ */
+export declare class QRCodeEncoder_Params {
+  constructor();
+  
+  /**
+   * The version of the QR code (size). If 0, the optimal version is chosen.
+   */
+  version: int;
+  
+  /**
+   * The error correction level.
+   */
+  correction_level: QRCodeEncoder_CorrectionLevel;
+  
+  /**
+   * The encoding mode.
+   */
+  mode: QRCodeEncoder_EncodeMode;
+  
+  /**
+   * The structure append index for structured append mode.
+   */
+  structure_number: int;
+}
+
+/**
+ * QR Code error correction levels.
+ */
+export declare enum QRCodeEncoder_CorrectionLevel {
+  CORRECT_LEVEL_L = 0,
+  CORRECT_LEVEL_M = 1, 
+  CORRECT_LEVEL_Q = 2,
+  CORRECT_LEVEL_H = 3
+}
+
+/**
+ * QR Code encoding modes.
+ */
+export declare enum QRCodeEncoder_EncodeMode {
+  MODE_NUMERIC = 0,
+  MODE_ALPHANUMERIC = 1,
+  MODE_BYTE = 2,
+  MODE_KANJI = 3,
+  MODE_ECI = 4,
+  MODE_STRUCTURED_APPEND = 5,
+  MODE_AUTO = 6
+}
+
+/**
+ * QR Code ECI encodings.
+ */
+export declare enum QRCodeEncoder_ECIEncodings {
+  ECI_UTF8 = 26
+}
+
+// QRCodeEncoder constants (already available in runtime)
+export declare const QRCodeEncoder_CORRECT_LEVEL_L: any;
+export declare const QRCodeEncoder_CORRECT_LEVEL_M: any;
+export declare const QRCodeEncoder_CORRECT_LEVEL_Q: any;
+export declare const QRCodeEncoder_CORRECT_LEVEL_H: any;
+export declare const QRCodeEncoder_MODE_NUMERIC: any;
+export declare const QRCodeEncoder_MODE_ALPHANUMERIC: any;
+export declare const QRCodeEncoder_MODE_BYTE: any;
+export declare const QRCodeEncoder_MODE_KANJI: any;
+export declare const QRCodeEncoder_MODE_ECI: any;
+export declare const QRCodeEncoder_MODE_STRUCTURED_APPEND: any;
+export declare const QRCodeEncoder_MODE_AUTO: any;
+export declare const QRCodeEncoder_ECI_UTF8: any;
