@@ -10,7 +10,7 @@ on:
       opencv_version:
         description: "OpenCV version/branch to build"
         required: false
-        default: "4.13.0"
+        default: "5.0.0"
         type: string
       emscripten_version:
         description: "Emscripten version to use"
