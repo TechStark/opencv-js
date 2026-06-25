@@ -38,9 +38,9 @@ on:
         default: false
         type: boolean
       cmake_options:
-        description: "Additional CMake options, one per line (e.g. -DCMAKE_CXX_STANDARD=17)"
+        description: "Additional CMake options, space or newline separated (e.g. -DBUILD_opencv_dnn=OFF)"
         required: false
-        default: "-DCMAKE_CXX_STANDARD=17"
+        default: ""
         type: string
       build_flags:
         description: "Additional raw Emscripten build flags (appended last)"
@@ -88,8 +88,11 @@ jobs:
           [[ "${{ inputs.enable_exception }}" == "true" ]] && BUILD_CMD+=(--enable_exception)
           [[ "${{ inputs.disable_single_file }}" == "true" ]] && BUILD_CMD+=(--disable_single_file)
 
-          # cmake_options: support multiple -D flags (one per line or space-separated)
-          CMAKE_OPTIONS="${{ inputs.cmake_options || '-DCMAKE_CXX_STANDARD=17' }}"
+          # Required for Emscripten 4.0.20+ (C++17 needed for Embind)
+          BUILD_CMD+=(--cmake_option="-DCMAKE_CXX_STANDARD=17")
+
+          # Additional cmake_options: space or newline separated
+          CMAKE_OPTIONS="${{ inputs.cmake_options }}"
           while IFS= read -r opt; do
             opt="${opt// /}"  # trim spaces
             [[ -n "$opt" ]] && BUILD_CMD+=(--cmake_option="$opt")
@@ -118,7 +121,7 @@ jobs:
         run: |
           OPENCV_VER="${{ inputs.opencv_version || '5.0.0' }}"
           EMSDK_VER="${{ inputs.emscripten_version || '4.0.20' }}"
-          CMAKE_OPTIONS="${{ inputs.cmake_options || '-DCMAKE_CXX_STANDARD=17' }}"
+          CMAKE_OPTIONS="${{ inputs.cmake_options }}"
           BUILD_FLAGS="${{ inputs.build_flags }}"
 
           TAG_NAME="opencv-js-${OPENCV_VER}-build${{ github.run_number }}"
@@ -138,7 +141,7 @@ jobs:
           - **OpenCV Version**: \`${OPENCV_VER}\`
           - **Emscripten Version**: \`${EMSDK_VER}\`
           - **Features**: \`${FEATURES}\`
-          - **CMake Options**: \`${CMAKE_OPTIONS:-none}\`
+          - **CMake Options**: \`-DCMAKE_CXX_STANDARD=17${CMAKE_OPTIONS:+ $CMAKE_OPTIONS}\`
           - **Extra Build Flags**: \`${BUILD_FLAGS:-none}\`
           - **Build Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
 
