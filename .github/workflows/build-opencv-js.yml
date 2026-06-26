@@ -63,6 +63,16 @@ jobs:
           repository: emscripten-core/emsdk
           path: emsdk
 
+      - name: Cache Emscripten toolchain
+        id: cache-emsdk
+        uses: actions/cache@v4
+        with:
+          path: |
+            emsdk/upstream
+            emsdk/node
+            emsdk/.emscripten
+          key: emsdk-${{ inputs.emscripten_version || '4.0.20' }}
+
       - name: Install and activate Emscripten
         run: |
           cd emsdk
@@ -75,6 +85,12 @@ jobs:
           repository: opencv/opencv
           ref: ${{ inputs.opencv_version || '5.0.0' }}
           path: opencv
+
+      - name: Cache CMake build artifacts
+        uses: actions/cache@v4
+        with:
+          path: build_js
+          key: build-${{ inputs.opencv_version || '5.0.0' }}-emsdk${{ inputs.emscripten_version || '4.0.20' }}-threads${{ inputs.threads }}-simd${{ inputs.simd }}-exc${{ inputs.enable_exception }}-single${{ inputs.disable_single_file }}-cmake${{ inputs.cmake_options }}-flags${{ inputs.build_flags }}
 
       - name: Build opencv.js
         run: |
