@@ -110,7 +110,6 @@ jobs:
           ls -lh build_js/bin/
           if [ -f "build_js/bin/opencv.js" ]; then
             echo "✓ opencv.js build successful"
-            echo "File size: $(du -h build_js/bin/opencv.js | cut -f1)"
           else
             echo "✗ opencv.js build failed"
             exit 1
@@ -135,6 +134,11 @@ jobs:
           FEATURES="${FEATURES# }"  # trim leading space
           FEATURES="${FEATURES:-none (defaults)}"
 
+          ZIP_NAME="opencv-js-${OPENCV_VER}-build${{ github.run_number }}.zip"
+          (cd build_js/bin && zip -r "../../${ZIP_NAME}" .)
+
+          FILE_INFO="- \`${ZIP_NAME}\`: $(du -h "${ZIP_NAME}" | cut -f1) (SHA256: \`$(sha256sum "${ZIP_NAME}" | cut -d' ' -f1)\`)"
+
           cat << EOF > release_notes.md
           ## Build Configuration
 
@@ -147,8 +151,7 @@ jobs:
 
           ## File Information
 
-          - **File Size**: $(du -h build_js/bin/opencv.js | cut -f1)
-          - **SHA256**: \`$(sha256sum build_js/bin/opencv.js | cut -d' ' -f1)\`
+          ${FILE_INFO}
 
           For more information, see [OpenCV.js Tutorials](https://docs.opencv.org/5.0.0/d5/d10/tutorial_js_root.html).
           EOF
@@ -162,7 +165,7 @@ jobs:
           tag_name: ${{ steps.release_info.outputs.tag_name }}
           name: ${{ steps.release_info.outputs.release_name }}
           body_path: release_notes.md
-          files: build_js/bin/opencv.js
+          files: opencv-js-${{ inputs.opencv_version || '5.0.0' }}-build${{ github.run_number }}.zip
           draft: false
           prerelease: true
           make_latest: "false"
