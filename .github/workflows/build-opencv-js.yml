@@ -123,7 +123,7 @@ jobs:
 
       - name: Verify build output
         run: |
-          ls -lh build_js/bin/
+          ls -lhR build_js/bin/
           if [ -f "build_js/bin/opencv.js" ]; then
             echo "✓ opencv.js build successful"
           else
