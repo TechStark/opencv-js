@@ -65,7 +65,7 @@ describe("QRCodeDetector", () => {
     
     try {
       // Load the test QR code image
-      const jimpSrc = await Jimp.read(path.resolve(__dirname, "test-qr.png"));
+      const jimpSrc = await Jimp.read(path.resolve(__dirname, "fixtures/test-qr.png"));
       const img = cv.matFromImageData(jimpSrc.bitmap);
       
       // Convert RGBA to BGR as OpenCV expects BGR format
@@ -97,7 +97,7 @@ describe("QRCodeDetector", () => {
     
     try {
       // Load the test QR code image
-      const jimpSrc = await Jimp.read(path.resolve(__dirname, "test-qr.png"));
+      const jimpSrc = await Jimp.read(path.resolve(__dirname, "fixtures/test-qr.png"));
       const img = cv.matFromImageData(jimpSrc.bitmap);
       
       // Convert RGBA to BGR as OpenCV expects BGR format
@@ -127,7 +127,7 @@ describe("QRCodeDetector", () => {
     
     try {
       // Load the test QR code image
-      const jimpSrc = await Jimp.read(path.resolve(__dirname, "test-qr.png"));
+      const jimpSrc = await Jimp.read(path.resolve(__dirname, "fixtures/test-qr.png"));
       const img = cv.matFromImageData(jimpSrc.bitmap);
       
       // Convert RGBA to BGR as OpenCV expects BGR format
@@ -194,7 +194,7 @@ describe("QRCodeDetectorAruco", () => {
     
     try {
       // Load the test QR code image
-      const jimpSrc = await Jimp.read(path.resolve(__dirname, "test-qr.png"));
+      const jimpSrc = await Jimp.read(path.resolve(__dirname, "fixtures/test-qr.png"));
       const img = cv.matFromImageData(jimpSrc.bitmap);
       
       // Convert RGBA to BGR as OpenCV expects BGR format

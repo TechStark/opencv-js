@@ -8,7 +8,7 @@ describe("Mat", () => {
   it("should pass TS type validations", async () => {
     try {
       // load local image file with jimp. It supports jpg, png, bmp, tiff and gif:
-      const jimpSrc = await Jimp.read(path.resolve(__dirname, "Lenna.png"));
+      const jimpSrc = await Jimp.read(path.resolve(__dirname, "fixtures/Lenna.png"));
 
       // `jimpImage.bitmap` property has the decoded ImageData that we can use to create a cv:Mat
       const img = cv.matFromImageData(jimpSrc.bitmap);

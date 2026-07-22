@@ -18,7 +18,7 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=4096
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -27,3 +27,6 @@ jobs:
 
       - name: Run test
         run: npm test
+
+      - name: Run compat checks
+        run: npm run test:compat

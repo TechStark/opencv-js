@@ -1,23 +1,22 @@
-diff --git a/dist/opencv.js b/dist/opencv.js
-index af4111b..3ba8a69 100644
 --- a/dist/opencv.js
 +++ b/dist/opencv.js
-@@ -22,7 +22,7 @@
-     // Other shells, e.g. d8
-     root.cv = factory();
-   }
+@@ UMD wrapper call @@
 -}(this, function () {
 +}(globalThis, function () {
-   
- var cv = (function() {
-   var _scriptDir = typeof document !== 'undefined' && document.currentScript ? document.currentScript.src : undefined;
-@@ -44,7 +44,7 @@ else if (typeof define === 'function' && define['amd'])
-   define([], () => cv);
- 
-   if (typeof Module === 'undefined')
+
+ Fixes: In browser ESM (<script type="module">), top-level `this` is
+ undefined. The UMD else branch `root.cv = factory()` then throws:
+   TypeError: Cannot set properties of undefined (setting 'cv')
+ Using `globalThis` is always defined in modern environments.
+
+@@ UMD factory tail @@
+-  if (typeof Module === 'undefined')
 -    Module = {};
++  if (typeof Module === 'undefined')
 +    var Module = {};
-   return cv(Module);
- }));
-         
-\ No newline at end of file
+
+ Fixes: When opencv.js is bundled by Webpack (which wraps everything in
+ "use strict"), the bare `Module = {}` assignment throws:
+   ReferenceError: Module is not defined
+ Declaring with `var` creates a local variable instead of an implicit
+ global assignment, which is safe in strict mode.

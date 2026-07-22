@@ -10,22 +10,42 @@ on:
       opencv_version:
         description: "OpenCV version/branch to build"
         required: false
-        default: "4.13.0"
+        default: "5.0.0"
         type: string
       emscripten_version:
         description: "Emscripten version to use"
         required: false
         default: "4.0.20"
         type: string
-      build_flags:
-        description: "Additional build flags (leave empty for defaults)"
+      threads:
+        description: "Build with pthreads support (-s USE_PTHREADS=1 + CMake)"
+        required: false
+        default: false
+        type: boolean
+      simd:
+        description: "Build with WASM SIMD (-msimd128)"
+        required: false
+        default: false
+        type: boolean
+      enable_exception:
+        description: "Enable C++ exception handling (-s DISABLE_EXCEPTION_CATCHING=0)"
+        required: false
+        default: false
+        type: boolean
+      disable_single_file:
+        description: "Output separate .wasm + .js files instead of single bundle"
+        required: false
+        default: false
+        type: boolean
+      cmake_options:
+        description: "Additional CMake options, space or newline separated (e.g. -DBUILD_opencv_dnn=OFF)"
         required: false
         default: ""
         type: string
-      cmake_options:
-        description: "Additional CMake options (e.g., -DCMAKE_CXX_STANDARD=17 for Emscripten 4.0.20+)"
+      build_flags:
+        description: "Additional raw Emscripten build flags (appended last)"
         required: false
-        default: "-DCMAKE_CXX_STANDARD=17"
+        default: ""
         type: string
 
 jobs:
@@ -38,47 +58,74 @@ jobs:
           sudo apt-get install -y python3 cmake libv4l-dev
 
       - name: Checkout emsdk
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: emscripten-core/emsdk
           path: emsdk
 
+      - name: Cache Emscripten toolchain
+        id: cache-emsdk
+        uses: actions/cache@v6
+        with:
+          path: |
+            emsdk/upstream
+            emsdk/node
+            emsdk/.emscripten
+          key: emsdk-${{ inputs.emscripten_version || '4.0.20' }}
+
       - name: Install and activate Emscripten
         run: |
           cd emsdk
-          ./emsdk install ${{ github.event.inputs.emscripten_version || '4.0.20' }}
-          ./emsdk activate ${{ github.event.inputs.emscripten_version || '4.0.20' }}
+          ./emsdk install ${{ inputs.emscripten_version || '4.0.20' }}
+          ./emsdk activate ${{ inputs.emscripten_version || '4.0.20' }}
 
       - name: Checkout OpenCV
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: opencv/opencv
-          ref: ${{ github.event.inputs.opencv_version || '4.13.0' }}
+          ref: ${{ inputs.opencv_version || '5.0.0' }}
           path: opencv
+
+      - name: Cache CMake build artifacts
+        uses: actions/cache@v6
+        with:
+          path: build_js
+          key: build-${{ inputs.opencv_version || '5.0.0' }}-emsdk${{ inputs.emscripten_version || '4.0.20' }}-threads${{ inputs.threads }}-simd${{ inputs.simd }}-exc${{ inputs.enable_exception }}-single${{ inputs.disable_single_file }}-cmake${{ inputs.cmake_options }}-flags${{ inputs.build_flags }}
 
       - name: Build opencv.js
         run: |
           source emsdk/emsdk_env.sh
-          BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
-          CMAKE_OPTIONS="${{ github.event.inputs.cmake_options || '-DCMAKE_CXX_STANDARD=17' }}"
-          # Use official defaults if no custom flags provided
-          # Defaults: -s WASM=1 -s SINGLE_FILE=1 -s USE_PTHREADS=0 -s EXPORTED_FUNCTIONS="['_malloc', '_free']"
-          # Note: Emscripten 4.0.20+ requires C++17 for Embind
-          BUILD_CMD="emcmake python3 opencv/platforms/js/build_js.py build_js"
-          if [ -n "$CMAKE_OPTIONS" ]; then
-            BUILD_CMD="$BUILD_CMD --cmake_option=\"$CMAKE_OPTIONS\""
-          fi
-          if [ -n "$BUILD_FLAGS" ]; then
-            BUILD_CMD="$BUILD_CMD --build_flags=\"$BUILD_FLAGS\""
-          fi
-          eval $BUILD_CMD
+          BUILD_CMD=(emcmake python3 opencv/platforms/js/build_js.py build_js)
+
+          # Named feature flags — each maps to its own build_js.py option
+          # so both CMake config and Emscripten linker flags are set correctly
+          [[ "${{ inputs.threads }}" == "true" ]] && BUILD_CMD+=(--threads)
+          [[ "${{ inputs.simd }}" == "true" ]] && BUILD_CMD+=(--simd)
+          [[ "${{ inputs.enable_exception }}" == "true" ]] && BUILD_CMD+=(--enable_exception)
+          [[ "${{ inputs.disable_single_file }}" == "true" ]] && BUILD_CMD+=(--disable_single_file)
+
+          # Required for Emscripten 4.0.20+ (C++17 needed for Embind)
+          BUILD_CMD+=(--cmake_option="-DCMAKE_CXX_STANDARD=17")
+
+          # Additional cmake_options: space or newline separated
+          CMAKE_OPTIONS="${{ inputs.cmake_options }}"
+          while IFS= read -r opt; do
+            opt="${opt// /}"  # trim spaces
+            [[ -n "$opt" ]] && BUILD_CMD+=(--cmake_option="$opt")
+          done <<< "$(echo "$CMAKE_OPTIONS" | tr ' ' '\n')"
+
+          # Raw build flags appended last
+          BUILD_FLAGS="${{ inputs.build_flags }}"
+          [[ -n "$BUILD_FLAGS" ]] && BUILD_CMD+=(--build_flags="$BUILD_FLAGS")
+
+          echo "Build command: ${BUILD_CMD[*]}"
+          "${BUILD_CMD[@]}"
 
       - name: Verify build output
         run: |
-          ls -lh build_js/bin/
+          ls -lhR build_js/bin/
           if [ -f "build_js/bin/opencv.js" ]; then
             echo "✓ opencv.js build successful"
-            echo "File size: $(du -h build_js/bin/opencv.js | cut -f1)"
           else
             echo "✗ opencv.js build failed"
             exit 1
@@ -87,52 +134,56 @@ jobs:
       - name: Prepare release info
         id: release_info
         run: |
-          OPENCV_VER="${{ github.event.inputs.opencv_version || '4.13.0' }}"
-          EMSDK_VER="${{ github.event.inputs.emscripten_version || '4.0.20' }}"
-          BUILD_FLAGS="${{ github.event.inputs.build_flags }}"
-          CMAKE_OPTIONS="${{ github.event.inputs.cmake_options || '-DCMAKE_CXX_STANDARD=17' }}"
+          OPENCV_VER="${{ inputs.opencv_version || '5.0.0' }}"
+          EMSDK_VER="${{ inputs.emscripten_version || '4.0.20' }}"
+          CMAKE_OPTIONS="${{ inputs.cmake_options }}"
+          BUILD_FLAGS="${{ inputs.build_flags }}"
 
-          # Use build number for uniqueness
           TAG_NAME="opencv-js-${OPENCV_VER}-build${{ github.run_number }}"
           RELEASE_NAME="OpenCV.js ${OPENCV_VER} (Build #${{ github.run_number }})"
 
-          # Prepare release description with all build parameters
-          if [ -z "$BUILD_FLAGS" ]; then
-            BUILD_FLAGS_DESC="Default (-s WASM=1 -s SINGLE_FILE=1 -s USE_PTHREADS=0)"
-          else
-            BUILD_FLAGS_DESC="$BUILD_FLAGS"
-          fi
-          CMAKE_OPTIONS_DESC="${CMAKE_OPTIONS:-None}"
+          FEATURES=""
+          [[ "${{ inputs.threads }}" == "true" ]] && FEATURES="${FEATURES} threads"
+          [[ "${{ inputs.simd }}" == "true" ]] && FEATURES="${FEATURES} simd"
+          [[ "${{ inputs.enable_exception }}" == "true" ]] && FEATURES="${FEATURES} exceptions"
+          [[ "${{ inputs.disable_single_file }}" == "true" ]] && FEATURES="${FEATURES} split-files"
+          FEATURES="${FEATURES# }"  # trim leading space
+          FEATURES="${FEATURES:-none (defaults)}"
+
+          ZIP_NAME="opencv-js-${OPENCV_VER}-build${{ github.run_number }}.zip"
+          (cd build_js/bin && zip -r "../../${ZIP_NAME}" .)
+
+          FILE_INFO="- \`${ZIP_NAME}\`: $(du -h "${ZIP_NAME}" | cut -f1) (SHA256: \`$(sha256sum "${ZIP_NAME}" | cut -d' ' -f1)\`)"
 
           cat << EOF > release_notes.md
           ## Build Configuration
 
           - **OpenCV Version**: \`${OPENCV_VER}\`
           - **Emscripten Version**: \`${EMSDK_VER}\`
-          - **Build Flags**: \`${BUILD_FLAGS_DESC}\`
-          - **CMake Options**: \`${CMAKE_OPTIONS_DESC}\`
+          - **Features**: \`${FEATURES}\`
+          - **CMake Options**: \`-DCMAKE_CXX_STANDARD=17${CMAKE_OPTIONS:+ $CMAKE_OPTIONS}\`
+          - **Extra Build Flags**: \`${BUILD_FLAGS:-none}\`
           - **Build Date**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
 
           ## File Information
 
-          - **File Size**: $(du -h build_js/bin/opencv.js | cut -f1)
-          - **SHA256**: \`$(sha256sum build_js/bin/opencv.js | cut -d' ' -f1)\`
+          ${FILE_INFO}
 
-          For more information, see [OpenCV.js Tutorials](https://docs.opencv.org/4.x/d5/d10/tutorial_js_root.html).
+          For more information, see [OpenCV.js Tutorials](https://docs.opencv.org/5.0.0/d5/d10/tutorial_js_root.html).
           EOF
 
           echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "release_name=$RELEASE_NAME" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.release_info.outputs.tag_name }}
           name: ${{ steps.release_info.outputs.release_name }}
           body_path: release_notes.md
-          files: build_js/bin/opencv.js
+          files: opencv-js-${{ inputs.opencv_version || '5.0.0' }}-build${{ github.run_number }}.zip
           draft: false
-          prerelease: false
+          prerelease: true
           make_latest: "false"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

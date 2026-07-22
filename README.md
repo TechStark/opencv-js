@@ -1,8 +1,8 @@
 # opencv-js
 
-OpenCV JavaScript version (NPM package) for node.js or browser. Get started guide [OpenCV.js Tutorials](https://docs.opencv.org/4.12.0/#:~:text=OpenCV%2DPython%20Tutorials-,OpenCV.js%20Tutorials,-Tutorials%20for%20contrib).
+OpenCV JavaScript version (NPM package) for node.js or browser. Get started guide [OpenCV.js Tutorials](https://docs.opencv.org/5.0.0/#:~:text=OpenCV%2DPython%20Tutorials-,OpenCV.js%20Tutorials,-Tutorials%20for%20contrib).
 
-The file `opencv.js` was downloaded from https://docs.opencv.org/4.12.0/opencv.js
+The file `opencv.js` was downloaded from https://docs.opencv.org/5.0.0/opencv.js
 
 TypeScript is supported (thanks to `mirada`).
 
@@ -91,4 +91,12 @@ The TypeScript type declarations may not be up to date with the latest OpenCV.js
 
 # Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=techstark/opencv-js&type=Date)](https://star-history.com/#techstark/opencv-js&Date)
+## Star History
+
+<a href="https://www.star-history.com/?repos=TechStark%2Fopencv-js&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=TechStark/opencv-js&type=date&theme=dark&legend=top-left&sealed_token=4HoKlhjJ0pOOud8pvOPkJVcozlKAcJJ9B7_UF11hzUG53_cNfsg3RH5Pg5Vw2zc6oAnN0CHCNxKAcC7iOHHkBnnLFFFlqK1elvzLTsDgLLMADV6zq-EsmA" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=TechStark/opencv-js&type=date&legend=top-left&sealed_token=4HoKlhjJ0pOOud8pvOPkJVcozlKAcJJ9B7_UF11hzUG53_cNfsg3RH5Pg5Vw2zc6oAnN0CHCNxKAcC7iOHHkBnnLFFFlqK1elvzLTsDgLLMADV6zq-EsmA" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=TechStark/opencv-js&type=date&legend=top-left&sealed_token=4HoKlhjJ0pOOud8pvOPkJVcozlKAcJJ9B7_UF11hzUG53_cNfsg3RH5Pg5Vw2zc6oAnN0CHCNxKAcC7iOHHkBnnLFFFlqK1elvzLTsDgLLMADV6zq-EsmA" />
+ </picture>
+</a>
