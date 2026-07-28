@@ -808,8 +808,7 @@ export declare function dft(
 
 /**
  * The function [cv::divide] divides one array by another: `\\[\\texttt{dst(I) =
- * saturate(src1(I)*scale/src2(I))}\\]` or a scalar by an array when there is no src1 :
- * `\\[\\texttt{dst(I) = saturate(scale/src2(I))}\\]`
+ * saturate(src1(I)*scale/src2(I))}\\]`
  *
  * Different channels of multi-channel arrays are processed independently.
  *
@@ -821,6 +820,9 @@ export declare function dft(
  *
  * Saturation is not applied when the output array has the depth CV_32S. You may even get result of an
  * incorrect sign in the case of overflow.
+ *
+ * Note: The scalar-by-array overload `divide(scale, src2, dst, dtype)` available in C++ OpenCV
+ * is not available in OpenCV.js. To achieve scalar division, use `cv.divide(cv.Mat.ones(...), src, dst, scale)`.
  *
  * [multiply], [add], [subtract]
  *
@@ -840,17 +842,6 @@ export declare function divide(
   src2: InputArray,
   dst: OutputArray,
   scale?: double,
-  dtype?: int,
-): void;
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function
- * only in what argument(s) it accepts.
- */
-export declare function divide(
-  scale: double,
-  src2: InputArray,
-  dst: OutputArray,
   dtype?: int,
 ): void;
 
