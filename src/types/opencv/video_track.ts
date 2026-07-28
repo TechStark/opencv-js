@@ -130,9 +130,11 @@ export declare function calcOpticalFlowFarneback(
  * @param status output status vector (of unsigned chars); each element of the vector is set to 1 if
  * the flow for the corresponding features has been found, otherwise, it is set to 0.
  *
- * @param err output vector of errors; each element of the vector is set to an error for the
+ * @param err output vector of errors (Mat); each element of the vector is set to an error metric for the
  * corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't
  * found then the error is not defined (use the status parameter to find such cases).
+ * **IMPORTANT**: This is an OUTPUT array where error metrics are stored, NOT an exception pointer.
+ * Do NOT call `cv.exceptionFromPtr(err)` on this parameter.
  *
  * @param winSize size of the search window at each pyramid level.
  *
@@ -156,6 +158,46 @@ export declare function calcOpticalFlowFarneback(
  * number of pixels in a window; if this value is less than minEigThreshold, then a corresponding
  * feature is filtered out and its flow is not processed, so it allows to remove bad points and get a
  * performance boost.
+ *
+ * @throws {Error} Throws an exception if inputs are invalid (e.g., mismatched sizes, wrong types).
+ * Wrap calls in try-catch and use translateException() helper to properly handle errors.
+ *
+ * @example
+ * ```typescript
+ * try {
+ *   const prevGray = new cv.Mat();
+ *   const curGray = new cv.Mat();
+ *   const prevPts = new cv.Mat(corners.rows, 1, cv.CV_32FC2);
+ *   const nextPts = new cv.Mat();
+ *   const status = new cv.Mat();
+ *   const err = new cv.Mat(); // This stores error metrics, NOT exception pointers
+ *
+ *   cv.calcOpticalFlowPyrLK(
+ *     prevGray, curGray, prevPts, nextPts, status, err,
+ *     new cv.Size(15, 15), 2,
+ *     new cv.TermCriteria(cv.TermCriteria_EPS | cv.TermCriteria_COUNT, 10, 0.03)
+ *   );
+ *
+ *   // Check status to see which points were successfully tracked
+ *   for (let i = 0; i < status.rows; i++) {
+ *     if (status.data[i] === 1) {
+ *       // Point was successfully tracked
+ *       const errorMetric = err.data32F[i]; // Access error metric for this point
+ *     }
+ *   }
+ *
+ *   // Clean up
+ *   prevGray.delete();
+ *   curGray.delete();
+ *   prevPts.delete();
+ *   nextPts.delete();
+ *   status.delete();
+ *   err.delete();
+ * } catch (error) {
+ *   // Handle OpenCV exceptions properly
+ *   throw translateException(error);
+ * }
+ * ```
  */
 export declare function calcOpticalFlowPyrLK(
   prevImg: InputArray,
