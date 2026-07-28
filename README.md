@@ -89,6 +89,36 @@ module.exports = {
 
 The TypeScript type declarations may not be up to date with the latest OpenCV.js. Refer to [cvKeys.json](doc/cvKeys.json) to check the available methods and properties at runtime.
 
+# Optional Modules
+
+Some OpenCV modules are disabled by default in the pre-built `opencv.js` file to reduce file size. This includes:
+
+- **stitching** - Image stitching for creating panoramas (includes the `Stitcher` class)
+- **videoio** - Video I/O operations
+- **highgui** - High-level GUI operations
+- **ml** - Machine learning algorithms
+
+TypeScript type definitions are provided for these modules (e.g., `Stitcher` class), but they will not be available at runtime unless you rebuild OpenCV.js with these modules enabled.
+
+## Using the Stitcher Class
+
+The `Stitcher` class is part of the stitching module and provides high-level functionality for image stitching and panorama creation. To use it:
+
+1. **Check if available**: First verify the module is enabled in your build:
+```js
+if ('Stitcher' in cv) {
+  // Stitcher is available
+  const stitcher = cv.Stitcher.create();
+  // Use stitcher...
+} else {
+  console.log('Stitcher module not available in current build');
+}
+```
+
+2. **Rebuild with stitching module**: To enable the stitching module, rebuild OpenCV.js using the workflow in `.github/workflows/build-opencv-js.yml`. The current build has this module disabled to reduce file size.
+
+For more information on the Stitcher API, see the [OpenCV Stitcher documentation](https://docs.opencv.org/4.x/d2/d8d/classcv_1_1Stitcher.html).
+
 # Star History
 
 ## Star History
