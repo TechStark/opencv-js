@@ -133,17 +133,38 @@ export declare function connectedComponents(
  * @param labels destination labeled image
  *
  * @param stats statistics output for each label, including the background label, see below for
- * available statistics. Statistics are accessed via stats(label, COLUMN) where COLUMN is one of
- * ConnectedComponentsTypes. The data type is CV_32S.
+ * available statistics. Statistics are accessed via `stats.intAt(label, COLUMN)` where COLUMN is one
+ * of the ConnectedComponentsTypes constants (e.g. `cv.CC_STAT_LEFT`, `cv.CC_STAT_TOP`,
+ * `cv.CC_STAT_WIDTH`, `cv.CC_STAT_HEIGHT`, `cv.CC_STAT_AREA`). The data type is CV_32S.
  *
  * @param centroids centroid output for each label, including the background label. Centroids are
- * accessed via centroids(label, 0) for x and centroids(label, 1) for y. The data type CV_64F.
+ * accessed via `centroids.doubleAt(label, 0)` for x and `centroids.doubleAt(label, 1)` for y.
+ * The data type is CV_64F.
  *
  * @param connectivity 8 or 4 for 8-way or 4-way connectivity respectively
  *
  * @param ltype output image label type. Currently CV_32S and CV_16U are supported.
  *
  * @param ccltype connected components algorithm type (see ConnectedComponentsAlgorithmsTypes).
+ *
+ * @example
+ * ```javascript
+ * const src = ...; // binary 8-bit single-channel Mat
+ * const labels = new cv.Mat();
+ * const stats = new cv.Mat();
+ * const centroids = new cv.Mat();
+ * const numLabels = cv.connectedComponentsWithStats(src, labels, stats, centroids);
+ * for (let i = 1; i < numLabels; i++) {
+ *   const x      = stats.intAt(i, cv.CC_STAT_LEFT);
+ *   const y      = stats.intAt(i, cv.CC_STAT_TOP);
+ *   const width  = stats.intAt(i, cv.CC_STAT_WIDTH);
+ *   const height = stats.intAt(i, cv.CC_STAT_HEIGHT);
+ *   const area   = stats.intAt(i, cv.CC_STAT_AREA);
+ *   const cx     = centroids.doubleAt(i, 0);
+ *   const cy     = centroids.doubleAt(i, 1);
+ * }
+ * labels.delete(); stats.delete(); centroids.delete();
+ * ```
  */
 export declare function connectedComponentsWithStats(
   image: InputArray,
@@ -164,11 +185,13 @@ export declare function connectedComponentsWithStats(
  * @param labels destination labeled image
  *
  * @param stats statistics output for each label, including the background label, see below for
- * available statistics. Statistics are accessed via stats(label, COLUMN) where COLUMN is one of
- * ConnectedComponentsTypes. The data type is CV_32S.
+ * available statistics. Statistics are accessed via `stats.intAt(label, COLUMN)` where COLUMN is one
+ * of the ConnectedComponentsTypes constants (e.g. `cv.CC_STAT_LEFT`, `cv.CC_STAT_TOP`,
+ * `cv.CC_STAT_WIDTH`, `cv.CC_STAT_HEIGHT`, `cv.CC_STAT_AREA`). The data type is CV_32S.
  *
  * @param centroids centroid output for each label, including the background label. Centroids are
- * accessed via centroids(label, 0) for x and centroids(label, 1) for y. The data type CV_64F.
+ * accessed via `centroids.doubleAt(label, 0)` for x and `centroids.doubleAt(label, 1)` for y.
+ * The data type is CV_64F.
  *
  * @param connectivity 8 or 4 for 8-way or 4-way connectivity respectively
  *
