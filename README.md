@@ -38,6 +38,54 @@ async function main() {
 main();
 ```
 
+# Loading Images
+
+## In Browser
+
+In browser environments, you can use `cv.imread()` to read from canvas or image elements:
+
+```js
+// Read from canvas element
+const mat = cv.imread('canvasElementId');
+
+// Read from image element
+const mat = cv.imread('imageElementId');
+```
+
+## In Node.js
+
+**Important:** `cv.imread()` does **not** work in Node.js because it requires browser DOM APIs (like `document`). Instead, use an image loading library like `jimp` and convert to a Mat:
+
+```js
+import { Jimp } from "jimp";
+import cvModule from "@techstark/opencv-js";
+
+async function main() {
+  // Initialize OpenCV
+  const cv = await cvModule;
+  
+  // Load image using jimp (supports jpg, png, bmp, tiff, gif)
+  const jimpImage = await Jimp.read("path/to/image.png");
+  
+  // Convert to OpenCV Mat (jimp.bitmap contains ImageData)
+  const img = cv.matFromImageData(jimpImage.bitmap);
+  
+  console.log(`Image loaded: ${img.rows}x${img.cols}, channels: ${img.channels()}`);
+  
+  // Process the image...
+  const gray = new cv.Mat();
+  cv.cvtColor(img, gray, cv.COLOR_RGBA2GRAY);
+  
+  // Always cleanup Mat objects to prevent memory leaks
+  img.delete();
+  gray.delete();
+}
+
+main();
+```
+
+For a complete working example, see the unit test [test/imread-nodejs.test.ts](test/imread-nodejs.test.ts).
+
 # Code Examples
 
 - See code examples (React, Angular, Node.js) in [opencv-js-examples](https://github.com/TechStark/opencv-js-examples)
