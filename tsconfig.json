@@ -8,8 +8,10 @@
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": ".",
-    "skipLibCheck": true,
-    "declaration": true
+    "noEmit": true,
+    "skipLibCheck": false,
+    "declaration": true,
+    "types": ["jest", "node"],
   },
   "include": ["src"]
 }

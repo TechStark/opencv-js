@@ -1,4 +1,4 @@
-import "../src";
+import "../src/index.d.ts";
 
 export async function setupOpenCv() {
   const cvModule = require("../dist/opencv.js");

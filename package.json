@@ -3,7 +3,7 @@
   "version": "5.0.0-release.1",
   "description": "OpenCV JavaScript version for node.js or browser",
   "main": "dist/opencv.js",
-  "types": "dist/src/index.d.ts",
+  "types": "src/index.d.ts",
   "files": [
     "dist/",
     "src/"
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "@types/node": "^24.1.0",
     "jest": "^30.0.0",
     "jimp": "^1.6.1",
     "prettier": "^3.8.4",
